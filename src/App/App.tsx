@@ -4,6 +4,7 @@ import { Navigate } from "react-router";
 import Page from "./Page";
 
 import Auth from "../Containers/Auth/Auth";
+import Stocktaking from "../Containers/Stocktaking/Stocktaking";
 
 function App() {
   return (
@@ -17,7 +18,15 @@ function App() {
             </Page>
           }
         />
-        <Route path="*" element={<Navigate to="/auth" />} />
+        <Route
+          path="/stocktaking"
+          element={
+            <Page title="Inwentaryzacja">
+              <Stocktaking />
+            </Page>
+          }
+        />
+        <Route path="*" element={<Navigate to="/stocktaking" />} />
       </Routes>
     </>
   );
