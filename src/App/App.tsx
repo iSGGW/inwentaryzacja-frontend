@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Navigate } from "react-router";
 import Page from "./Page";
