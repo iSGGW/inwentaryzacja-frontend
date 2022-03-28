@@ -4,6 +4,7 @@ import { Navigate } from "react-router";
 import Page from "./Page";
 
 import Auth from "../Containers/Auth/Auth";
+import Display from "../Containers/Display/Display";
 
 function App() {
   return (
@@ -14,6 +15,14 @@ function App() {
           element={
             <Page title="Zaloguj się">
               <Auth />
+            </Page>
+          }
+        />
+        <Route
+          path="/display"
+          element={
+            <Page title="skaner">
+              < Display />
             </Page>
           }
         />
