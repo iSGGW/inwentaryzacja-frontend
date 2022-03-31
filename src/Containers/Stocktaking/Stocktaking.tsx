@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { QrReader, OnResultFunction } from "react-qr-reader";
 import qrCode from "./Assets/qrCode.svg";
+import { ReaderFrame } from "./Assets/ReaderFrame";
 import "./Stocktaking.css";
 
 function Stocktaking() {
@@ -27,11 +28,14 @@ function Stocktaking() {
         alt={"qr_scanner_button"}
       />
       {scanning && (
-        <QrReader
-          videoId={"video"}
-          constraints={{ facingMode: "environment" }}
-          onResult={handleResults}
-        />
+        <div className={"qrReaderWrapper"}>
+          <QrReader
+            ViewFinder={ReaderFrame}
+            videoId={"video"}
+            constraints={{ facingMode: "environment" }}
+            onResult={handleResults}
+          />
+        </div>
       )}
       <p>{qrData}</p>
       <span onClick={() => setQrData("No result")}>Reset</span>
