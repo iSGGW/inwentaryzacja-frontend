@@ -3,7 +3,7 @@ import { Navigate } from "react-router";
 import Page from "./Page";
 
 import Auth from "../Containers/Auth/Auth";
-import Stocktaking from "../Containers/Stocktaking/Stocktaking";
+import Search from "../Containers/Search/Search";
 
 function App() {
   return (
@@ -18,14 +18,14 @@ function App() {
           }
         />
         <Route
-          path="/stocktaking"
+          path="/search"
           element={
-            <Page title="Inwentaryzacja">
-              <Stocktaking />
+            <Page title="Wyszukaj">
+              <Search />
             </Page>
           }
         />
-        <Route path="*" element={<Navigate to="/stocktaking" />} />
+        <Route path="*" element={<Navigate to="/search" />} />
       </Routes>
     </>
   );

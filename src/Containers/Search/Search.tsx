@@ -2,9 +2,9 @@ import { useState } from "react";
 import { QrReader, OnResultFunction } from "react-qr-reader";
 import qrCode from "./Assets/qrCode.svg";
 import { ReaderFrame } from "./Assets/ReaderFrame";
-import "./Stocktaking.css";
+import "./Search.css";
 
-function Stocktaking() {
+function Search() {
   const [qrData, setQrData] = useState<string>("No result");
   const [scanning, setScanning] = useState<boolean>(false);
 
@@ -21,7 +21,7 @@ function Stocktaking() {
   };
 
   return (
-    <div className="stocktaking">
+    <div className="search">
       <img
         src={qrCode}
         onClick={() => setScanning(true)}
@@ -43,4 +43,4 @@ function Stocktaking() {
   );
 }
 
-export default Stocktaking;
+export default Search;
