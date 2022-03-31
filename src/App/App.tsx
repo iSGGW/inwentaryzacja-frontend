@@ -3,6 +3,7 @@ import { Navigate } from "react-router";
 import Page from "./Page";
 
 import Auth from "../Containers/Auth/Auth";
+import Search from "../Containers/Search/Search";
 
 function App() {
   return (
@@ -16,7 +17,15 @@ function App() {
             </Page>
           }
         />
-        <Route path="*" element={<Navigate to="/auth" />} />
+        <Route
+          path="/search"
+          element={
+            <Page title="Wyszukaj">
+              <Search />
+            </Page>
+          }
+        />
+        <Route path="*" element={<Navigate to="/search" />} />
       </Routes>
     </>
   );
