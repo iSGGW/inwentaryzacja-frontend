@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { QrReader, OnResultFunction } from "react-qr-reader";
+import qrCode from "./Assets/qrCode.svg";
 import "./Stocktaking.css";
 
 function Stocktaking() {
@@ -20,7 +21,11 @@ function Stocktaking() {
 
   return (
     <div className="stocktaking">
-      <span onClick={() => setScanning(true)}>Scan QR code</span>
+      <img
+        src={qrCode}
+        onClick={() => setScanning(true)}
+        alt={"qr_scanner_button"}
+      />
       {scanning && (
         <QrReader
           videoId={"video"}
