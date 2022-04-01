@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { QrReader, OnResultFunction } from "react-qr-reader";
-import qrCode from "./Assets/qrCode.svg";
-import { ReaderFrame } from "./Assets/ReaderFrame";
+import qrCode from "./assets/qrCode.svg";
+import { ReaderFrame } from "./assets/ReaderFrame";
 import "./Search.css";
 
 function Search() {
