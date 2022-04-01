@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, Link } from "react-router-dom";
 import { navigationElement } from "../App";
 import "./AppLayout.css";
 
@@ -8,6 +8,8 @@ interface appLayoutProps {
 }
 
 const AppLayout: FunctionComponent<appLayoutProps> = ({ navigation }) => {
+  const location = useLocation();
+
   return (
     <div className={"layout"}>
       <div className={"menu"}>
@@ -15,9 +17,15 @@ const AppLayout: FunctionComponent<appLayoutProps> = ({ navigation }) => {
           <div className={"logo"}>iSGGW</div>
           <div className={"navigation"}>
             {navigation.map((navElement) => (
-              <div key={navElement.name} className={"item"}>
+              <Link
+                key={navElement.name}
+                to={navElement.pathname}
+                className={`item ${
+                  location.pathname === navElement.pathname ? "active" : ""
+                }`}
+              >
                 {navElement.name}
-              </div>
+              </Link>
             ))}
           </div>
         </div>

@@ -37,7 +37,13 @@
 }
 
 .navigation .item {
+  color: white;
+  text-decoration: none;
   cursor: pointer;
+}
+
+.navigation .item.active {
+  text-decoration-line: underline;
 }
 
 .content {
