@@ -1,3 +1,11 @@
+body {
+  background-image:  url("img/budynek.jpg");
+  background-repeat: no-repeat; 
+  background-size: cover;
+  font-family: sans-serif;
+  margin: 0px;
+}
+
 .App {
   text-align: center;
 }
@@ -14,14 +22,34 @@
 }
 
 .App-header {
+  margin-top: 35px;
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+}
+
+button {
+  background-color: #1ba122;
+  padding: 17px;
+  margin: 5px;
+  text-align: center;
+  border: none;
+  color: white;
+  border-radius: 20px;
+}
+
+input {
+  border-radius: 20px;
+  padding: 5px;
 }
 
 .App-link {
