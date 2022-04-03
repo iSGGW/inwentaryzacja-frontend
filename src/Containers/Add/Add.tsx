@@ -1,6 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import Input from "../../App/inputs/Input";
-import PrimaryButton from "../../App/inputs/PrimaryButton";
+import Inputs from "../../Components/inputs/index";
 import "./Add.css";
 
 interface valuesForm {
@@ -10,6 +9,8 @@ interface valuesForm {
 }
 
 const Add = () => {
+  const { Input, PrimaryButton } = Inputs;
+
   const [values, setValues] = useState<valuesForm>({
     build: "",
     classroom: "",
