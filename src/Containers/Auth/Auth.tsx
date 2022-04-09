@@ -8,18 +8,15 @@ function Auth() {
     <h1>Zaloguj się</h1>
     <form>
         <label>
-          <p>Nazwa użytkownika</p>
+          <p>Nazwa użytkownika:</p>
           <input type="text"/>
         </label>
         <label>
-          <p>Hasło</p>
+          <p>Hasło:</p>
           <input type="password"/>
         </label>
         <div>
-          <button type="submit">Potwierdź</button>
-        </div>
-        <div>
-          <button>Utwórz konto</button>
+          <button id="btn-submit" type="submit">Potwierdź</button>
         </div>
     </form>
 
