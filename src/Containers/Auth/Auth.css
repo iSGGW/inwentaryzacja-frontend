@@ -16,6 +16,10 @@ body {
   pointer-events: none;
 }
 
+.auth-logo {
+  min-width: 20%;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
