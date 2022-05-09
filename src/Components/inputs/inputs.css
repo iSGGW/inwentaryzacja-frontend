@@ -1,0 +1,51 @@
+.primary-button {
+  padding: 0.6em 1.2em;
+  cursor: pointer;
+  background-color: #507896;
+  border: none;
+  color: white;
+  transition: 0.5s;
+  font-weight: bold;
+  border-radius: 0.3em;
+  min-width: 100px;
+}
+
+.primary-button:hover {
+  background-color: #43647d;
+}
+
+.input-wrapper {
+  width: 100%;
+}
+
+.input-wrapper .input {
+  width: 100%;
+  display: flex;
+}
+
+.input-wrapper .prefix {
+  width: 3em;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-bottom-left-radius: 0.3em;
+  border-top-left-radius: 0.3em;
+  border-right: none;
+}
+
+.input-wrapper label {
+  font-size: 0.9em;
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 0.6em 1em;
+  border: 1px solid #ced4da;
+  border-bottom-right-radius: 0.3em;
+  border-top-right-radius: 0.3em;
+}
+
+.input-wrapper input:focus {
+  outline: rgba(0, 123, 255, 0.4) solid 4px;
+}

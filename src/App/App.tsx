@@ -6,6 +6,7 @@ import "./Base.css";
 import Auth from "../Containers/Auth/Auth";
 import AppLayout from "./Layouts/AppLayout";
 import Search from "../Containers/Search/Search";
+import Add from "../Containers/Add/Add";
 
 export interface navigationElement {
   pathname: string;
@@ -19,33 +20,44 @@ const navigation: navigationElement[] = [
     name: "Search",
     href: "search",
   },
+  {
+    pathname: "/add",
+    name: "Add",
+    href: "add",
+  },
 ];
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route element={<AppLayout navigation={navigation} />}>
-          <Route
-            path="/search"
-            element={
-              <Page title="Wyszukaj">
-                <Search />
-              </Page>
-            }
-          />
-        </Route>
+    <Routes>
+      <Route element={<AppLayout navigation={navigation} />}>
         <Route
-          path="/auth"
+          path="/search"
           element={
-            <Page title="Zaloguj się">
-              <Auth />
+            <Page title="Wyszukaj">
+              <Search />
             </Page>
           }
         />
-        <Route path="*" element={<Navigate to="/search" />} />
-      </Routes>
-    </>
+        <Route
+          path="/add"
+          element={
+            <Page title="Wyszukaj">
+              <Add />
+            </Page>
+          }
+        />
+      </Route>
+      <Route
+        path="/auth"
+        element={
+          <Page title="Zaloguj się">
+            <Auth />
+          </Page>
+        }
+      />
+      <Route path="*" element={<Navigate to="/search" />} />
+    </Routes>
   );
 }
 
