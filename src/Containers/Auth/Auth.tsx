@@ -3,9 +3,9 @@ import sggwLogo from "./img/sggwLogo.svg";
 
 function Auth() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={sggwLogo} className="auth-logo" />
+    <div className="auth">
+      <header className="auth-header">
+        <img src={sggwLogo} alt="sggw_logo" className="auth-logo" />
         <h1>Logowanie</h1>
         <form>
           <label>

@@ -1,45 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap");
-
-body {
-  background-color: #198754;
-  font-family: sans-serif;
-  font-family: "Open Sans", sans-serif;
-  margin: 0px;
-}
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.auth {
+  height: 100%;
+  background-color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .auth-logo {
-  min-width: 20%;
+  min-width: 170px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  margin-top: 35px;
+.auth-header {
+  flex-grow: 1;
+  max-width: 1000px;
+  text-align: center;
+  margin: 20px;
+  padding: 50px;
   background-color: #fff;
-  min-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: #000;
   border-radius: 5px;
-  margin-left: 25px;
-  margin-right: 25px;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 5px 5px;
 }
 
 #btn-submit {
