@@ -28,26 +28,11 @@ const navigation: navigationElement[] = [
 ];
 
 function App() {
+  //TODO: Read authentication from api
+  const isAuthenticated = true;
+
   return (
     <Routes>
-      <Route element={<AppLayout navigation={navigation} />}>
-        <Route
-          path="/search"
-          element={
-            <Page title="Wyszukaj">
-              <Search />
-            </Page>
-          }
-        />
-        <Route
-          path="/add"
-          element={
-            <Page title="Wyszukaj">
-              <Add />
-            </Page>
-          }
-        />
-      </Route>
       <Route
         path="/auth"
         element={
@@ -56,7 +41,29 @@ function App() {
           </Page>
         }
       />
-      <Route path="*" element={<Navigate to="/search" />} />
+      {isAuthenticated ? (
+        <Route element={<AppLayout navigation={navigation} />}>
+          <Route
+            path="/search"
+            element={
+              <Page title="Wyszukaj">
+                <Search />
+              </Page>
+            }
+          />
+          <Route
+            path="/add"
+            element={
+              <Page title="Wyszukaj">
+                <Add />
+              </Page>
+            }
+          />
+          <Route path="*" element={<Navigate to="/search" />} />
+        </Route>
+      ) : (
+        <Route path="*" element={<Navigate to="/auth" />} />
+      )}
     </Routes>
   );
 }
