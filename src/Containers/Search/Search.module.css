@@ -1,0 +1,17 @@
+/*.search {*/
+/*  text-align: center;*/
+/*  height: 85vh;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  gap: 12px;*/
+/*}*/
+
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+}

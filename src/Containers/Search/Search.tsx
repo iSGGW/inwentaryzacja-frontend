@@ -1,40 +1,15 @@
 import { useState } from "react";
-import { QrReader, OnResultFunction } from "react-qr-reader";
-import { ReaderFrame } from "./assets/ReaderFrame";
-import "./Search.css";
+import { Scanner } from "src/Components/Scanner";
+
+import styles from "./Search.module.css";
 
 function Search() {
-  const [qrData, setQrData] = useState<string>();
-  const [scanning, setScanning] = useState<boolean>(true);
-
-  const handleResults: OnResultFunction = (result) => {
-    try {
-      const currentResult = result?.getText();
-      if (currentResult) {
-        setQrData(currentResult);
-        setScanning(false);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [scannedObject, setScannedObject] = useState<string>();
 
   return (
-    <div className="search">
-      <div className="btnResetQR" onClick={() => setScanning(true)}>
-        Zeskanuj ponownie
-      </div>
-      {scanning && (
-        <div className={"qrReaderWrapper"}>
-          <QrReader
-            ViewFinder={ReaderFrame}
-            videoId={"video"}
-            constraints={{ facingMode: "environment" }}
-            onResult={handleResults}
-          />
-        </div>
-      )}
-      <p>{qrData}</p>
+    <div className={styles.search}>
+      <Scanner setScannedData={setScannedObject} />
+      <div>{scannedObject}</div>
     </div>
   );
 }
