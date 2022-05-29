@@ -1,7 +1,10 @@
 import { FunctionComponent } from "react";
 import { Outlet, useLocation, Link } from "react-router-dom";
-import { navigationElement } from "../App";
-import "./AppLayout.css";
+import cx from "classnames";
+import { navigationElement } from "src/App/App";
+import { Container } from "src/Components/Container";
+
+import styles from "./AppLayout.module.css";
 
 interface appLayoutProps {
   navigation: navigationElement[];
@@ -10,32 +13,38 @@ interface appLayoutProps {
 const AppLayout: FunctionComponent<appLayoutProps> = ({ navigation }) => {
   const location = useLocation();
 
+  const linkClassName = (locationPath: string, navElementPath: string) =>
+    cx(styles.item, { [styles.active]: locationPath === navElementPath });
+
   return (
-    <div className={"layout"}>
-      <div className={"menu"}>
-        <div className={"container"}>
-          <div className={"logo"}>iSGGW</div>
-          <div className={"navigation"}>
-            {navigation.map((navElement) => (
-              <Link
-                key={navElement.name}
-                to={navElement.pathname}
-                className={`item ${
-                  location.pathname === navElement.pathname ? "active" : ""
-                }`}
-              >
-                {navElement.name}
-              </Link>
-            ))}
+    <>
+      <div className={styles.menuWrapper}>
+        <Container>
+          <div className={styles.menu}>
+            <div className={styles.logo}>iSGGW</div>
+            <div className={styles.navigation}>
+              {navigation.map((navElement) => (
+                <Link
+                  className={linkClassName(
+                    location.pathname,
+                    navElement.pathname
+                  )}
+                  key={navElement.name}
+                  to={navElement.pathname}
+                >
+                  {navElement.name}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        </Container>
       </div>
-      <div className={"container"}>
-        <div className={"content"}>
+      <Container>
+        <div className={styles.content}>
           <Outlet />
         </div>
-      </div>
-    </div>
+      </Container>
+    </>
   );
 };
 
