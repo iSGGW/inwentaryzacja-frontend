@@ -17,12 +17,12 @@ export interface navigationElement {
 const navigation: navigationElement[] = [
   {
     pathname: "/search",
-    name: "Search",
+    name: "Wyszukiwanie",
     href: "search",
   },
   {
     pathname: "/add",
-    name: "Add",
+    name: "Dodawanie",
     href: "add",
   },
 ];
