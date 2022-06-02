@@ -1,40 +1,79 @@
-.inwentaryzacja {
+.layout {
   height: 100%;
 }
 
-.menuWrapper {
+.layout :global(.ant-layout-sider),
+.layout :global(.ant-menu-item),
+.layout :global(.ant-menu) {
   background-color: var(--color-primary);
-  color: white;
-  padding: 10px 0;
 }
 
-.menu,
-.navigation {
-  align-items: center;
-  display: flex;
-  gap: 20px;
+.layout :global(.ant-menu-item-selected) {
+  background-color: #006353 !important;
 }
 
-.menu {
-  justify-content: space-between;
+.layout :global(.ant-layout-sider-trigger) {
+  background-color: #006353 !important;
+}
+
+.content {
+  margin: 0 16px;
+}
+
+.menu img {
+  width: 20px;
+}
+
+.logoImage {
+  margin: 24px 0 12px;
+  text-align: center;
 }
 
 .logo {
-  cursor: default;
-  font-size: 24px;
-  font-weight: 500;
-}
-
-.navigation {
-  justify-content: center;
-}
-
-.navigation .item {
   color: white;
-  cursor: pointer;
-  text-decoration: none;
+  cursor: default;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  text-align: center;
 }
 
-.navigation .item.active {
-  text-decoration-line: underline;
+@media (max-width: 640px) {
+  .layout :global(.ant-layout-sider-trigger) {
+    width: 100% !important;
+  }
+
+  .sider {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100% !important;
+    max-width: unset !important;
+    min-width: unset !important;
+    z-index: 2;
+  }
+
+  .sider.closed {
+    display: none;
+  }
+
+  .openMenu {
+    color: white;
+    background-color: #006353;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1em;
+  }
+
+  .openMenu img {
+    width: 20px;
+  }
+}
+
+@media (min-width: 641px) {
+  .openMenu {
+    display: none;
+  }
 }

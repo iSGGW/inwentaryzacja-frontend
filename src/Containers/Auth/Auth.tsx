@@ -1,5 +1,5 @@
 import "./Auth.css";
-import sggwLogo from "./img/sggwLogo.svg";
+import sggwLogo from "src/Assets/sggwLogo.svg";
 
 function Auth() {
   return (
