@@ -9,8 +9,7 @@ import AppLayout from "./Layouts/AppLayout";
 import Search from "../Containers/Search/Search";
 import Add from "../Containers/Add/Add";
 
-import magnifyingGlass from "src/Assets/magnifyingGlass.svg";
-import plus from "src/Assets/plus.svg";
+import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
 
 export interface navigationElement {
   pathname: string;
@@ -24,13 +23,13 @@ const navigation: navigationElement[] = [
     pathname: "/search",
     name: "Wyszukiwanie",
     href: "search",
-    icon: <img src={magnifyingGlass} alt={"search_icon"} />,
+    icon: <SearchOutlined />,
   },
   {
     pathname: "/add",
     name: "Dodawanie",
     href: "add",
-    icon: <img src={plus} alt={"add_icon"} />,
+    icon: <PlusOutlined />,
   },
 ];
 
