@@ -3,7 +3,7 @@ import { Outlet, useLocation, Link } from "react-router-dom";
 import cx from "classnames";
 import { Button, Layout, Menu } from "antd";
 import type { MenuProps } from "antd";
-import type { navigationElement } from "src/App/App";
+import type {navigationElement} from "src/App/Entities";
 import arrowLeft from "src/Assets/arrowLeft.svg";
 import sggwLogoWhite from "src/Assets/sggwLogoWhite.svg";
 
