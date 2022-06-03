@@ -3,11 +3,12 @@ import { Outlet, useLocation, Link } from "react-router-dom";
 import cx from "classnames";
 import { Button, Layout, Menu } from "antd";
 import type { MenuProps } from "antd";
-import type {navigationElement} from "src/App/Entities";
-import arrowLeft from "src/Assets/arrowLeft.svg";
+import { ArrowRightOutlined } from "@ant-design/icons";
+import type { navigationElement } from "src/App/Entities";
 import sggwLogoWhite from "src/Assets/sggwLogoWhite.svg";
 
 import styles from "./AppLayout.module.css";
+import { Container } from "src/Components/Container";
 
 interface appLayoutProps {
   navigation: navigationElement[];
@@ -19,7 +20,7 @@ const AppLayout: FunctionComponent<appLayoutProps> = ({ navigation }) => {
   const [currentLocation, setCurrentLocation] = useState<string>(
     location.pathname
   );
-  const [siderCollapsed, setSiderCollapsed] = useState<boolean>(false);
+  const [siderCollapsed, setSiderCollapsed] = useState<boolean>(true);
 
   const siderClasses = cx(styles.sider, { [styles.closed]: siderCollapsed });
 
@@ -60,13 +61,15 @@ const AppLayout: FunctionComponent<appLayoutProps> = ({ navigation }) => {
       </Sider>
       <Layout>
         <Content className={styles.content}>
-          <Button
-            className={styles.openMenu}
-            onClick={() => setSiderCollapsed(false)}
-          >
-            <img src={arrowLeft} alt={"arrow_left"} />
-            Otwórz menu
-          </Button>
+          <Container>
+            <Button
+              className={styles.openMenu}
+              onClick={() => setSiderCollapsed(false)}
+            >
+              Otwórz menu
+              <ArrowRightOutlined />
+            </Button>
+          </Container>
           <Outlet />
         </Content>
       </Layout>

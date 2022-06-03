@@ -1,38 +1,28 @@
-.overlay {
-  bottom: 20px;
-  color: white;
-  font-size: 24px;
-  left: 50%;
-  position: absolute;
-  transform: translateX(-50%);
+.formWrapper {
+  width: 100%;
+  text-align: center;
 }
 
-.resetScanner {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #003228;
-  color: white;
-  display: inline-block;
-  width: auto;
-  margin: auto 0;
-  padding: 5px 10px;
-  border-radius: 5px;
+.form button {
+  height: 200px;
+  width: 200px;
+}
+
+.form button svg {
+  width: 50%;
+  height: auto;
+}
+
+.modal {
+  position: relative;
 }
 
 .scannerWrapper {
-  margin: 0 auto;
-  flex-grow: 1;
+  height: 70vh;
 }
 
-@media (max-width: 768px) {
-  .scannerWrapper {
-    height: 100%;
-  }
-}
-
-@media (min-width: 769px) {
-  .scannerWrapper {
-    max-width: 60%;
-    max-height: 100%;
+@media (max-width: 640px) {
+  .formWrapper {
+    order: 1;
   }
 }

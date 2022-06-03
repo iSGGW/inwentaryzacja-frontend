@@ -3,7 +3,7 @@ import { Navigate } from "react-router";
 import Page from "./Page";
 import "./Base.css";
 
-import {navigation} from "src/App/Entities";
+import { navigation } from "src/App/Entities";
 
 import Auth from "../Containers/Auth/Auth";
 import AppLayout from "./Layouts/AppLayout";

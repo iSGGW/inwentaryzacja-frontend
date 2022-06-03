@@ -1,16 +1,24 @@
 import { useState } from "react";
-import { Scanner } from "src/Components/Scanner";
+import { Container } from "src/Components/Container";
+import { SearchForm } from "src/Components/SearchForm";
+import { searchResult } from "src/App/Entities";
 
 import styles from "./Search.module.css";
+import { Scanner } from "src/Components/Scanner";
 
 function Search() {
-  const [scannedObject, setScannedObject] = useState<string>();
+  const [searchApiResponse, setSearchApiResponse] = useState<searchResult[]>();
 
   return (
-    <div className={styles.search}>
-      <Scanner setScannedData={setScannedObject} />
-      <div>{scannedObject}</div>
-    </div>
+    <Container>
+      <div className={styles.search}>
+        <SearchForm setApiResponse={setSearchApiResponse} />
+        <div className={styles.dividerWrapper}>
+          <div className={styles.divider} />
+        </div>
+        <Scanner setScannedData={setSearchApiResponse} />
+      </div>
+    </Container>
   );
 }
 

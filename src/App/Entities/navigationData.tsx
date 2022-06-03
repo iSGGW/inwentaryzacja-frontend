@@ -1,6 +1,6 @@
-import { ReactElement } from 'react';
+import { ReactElement } from "react";
 
-import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
+import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 
 export interface navigationElement {
   pathname: string;

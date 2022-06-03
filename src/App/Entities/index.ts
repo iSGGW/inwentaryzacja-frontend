@@ -1,1 +1,2 @@
-export * from './navigationData';
+export * from "./navigationData";
+export * from "./searchResult";
