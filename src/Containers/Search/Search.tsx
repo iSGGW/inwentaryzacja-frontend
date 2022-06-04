@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Container } from "src/Components/Container";
 import { SearchForm } from "src/Components/SearchForm";
+import { Scanner } from "src/Components/Scanner";
+import { SearchTable } from "src/Components/SearchTable";
 import { searchResult } from "src/App/Entities";
 
 import styles from "./Search.module.css";
-import { Scanner } from "src/Components/Scanner";
 
 function Search() {
   const [searchApiResponse, setSearchApiResponse] = useState<searchResult[]>();
@@ -18,6 +19,10 @@ function Search() {
         </div>
         <Scanner setScannedData={setSearchApiResponse} />
       </div>
+      {
+        //TODO: Add Description component with the details of a selected item
+        searchApiResponse && <SearchTable results={searchApiResponse} />
+      }
     </Container>
   );
 }

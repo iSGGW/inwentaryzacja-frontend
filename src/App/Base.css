@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap");
 @import "~antd/dist/antd";
 
+html {
+  background-color: #f0f2f5;
+}
+
 body {
   margin: 0;
 }
