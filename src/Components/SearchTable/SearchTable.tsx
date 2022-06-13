@@ -1,13 +1,14 @@
-import { FunctionComponent } from "react";
+import type { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/lib/table";
 import type { searchResult } from "src/App/Entities";
 
 interface searchTableProps {
   results: searchResult[];
+  setOpenedResult: Dispatch<SetStateAction<searchResult | undefined>>;
 }
 
-interface searchResultsColumns {
+interface searchResultsColumn {
   id: string;
   name: string;
   status?: string;
@@ -17,9 +18,10 @@ interface searchResultsColumns {
 
 export const SearchTable: FunctionComponent<searchTableProps> = ({
   results,
+  setOpenedResult,
 }) => {
   const parsedResults = () => {
-    const dataToReturn: searchResultsColumns[] = [];
+    const dataToReturn: searchResultsColumn[] = [];
     results.map((result) => {
       dataToReturn.push({
         id: result.id,
@@ -31,7 +33,7 @@ export const SearchTable: FunctionComponent<searchTableProps> = ({
     return dataToReturn;
   };
 
-  const columns: ColumnsType<searchResultsColumns> = [
+  const columns: ColumnsType<searchResultsColumn> = [
     {
       title: "Piętro",
       dataIndex: "floor",
@@ -54,11 +56,21 @@ export const SearchTable: FunctionComponent<searchTableProps> = ({
     },
   ];
 
+  const openDetails = (record: searchResultsColumn) => {
+    const chosenItem = results.find((result) => result.id === record.id);
+    setOpenedResult(chosenItem);
+  };
+
   return (
     <Table
       columns={columns}
       dataSource={parsedResults()}
       rowKey={"id"}
+      onRow={(record) => {
+        return {
+          onClick: () => openDetails(record),
+        };
+      }}
       scroll={{ x: true }}
     />
   );

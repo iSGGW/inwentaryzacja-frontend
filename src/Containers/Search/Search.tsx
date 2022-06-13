@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Container } from "src/Components/Container";
+import { Description } from "src/Components/Description/Description";
 import { SearchForm } from "src/Components/SearchForm";
 import { Scanner } from "src/Components/Scanner";
 import { SearchTable } from "src/Components/SearchTable";
@@ -9,6 +10,7 @@ import styles from "./Search.module.css";
 
 function Search() {
   const [searchApiResponse, setSearchApiResponse] = useState<searchResult[]>();
+  const [openedResult, setOpenedResult] = useState<searchResult>();
 
   return (
     <Container>
@@ -19,10 +21,15 @@ function Search() {
         </div>
         <Scanner setScannedData={setSearchApiResponse} />
       </div>
-      {
-        //TODO: Add Description component with the details of a selected item
-        searchApiResponse && <SearchTable results={searchApiResponse} />
-      }
+      {searchApiResponse && (
+        <>
+          <Description result={openedResult} />
+          <SearchTable
+            results={searchApiResponse}
+            setOpenedResult={setOpenedResult}
+          />
+        </>
+      )}
     </Container>
   );
 }
