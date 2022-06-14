@@ -8,24 +8,8 @@
   width: 100%;
 }
 
-.divider {
-  border-left: solid 1px var(--color-primary);
-  height: 100%;
-}
-
 @media (max-width: 640px) {
   .search {
     flex-wrap: wrap;
-  }
-
-  .dividerWrapper {
-    width: 100%;
-    order: 2;
-  }
-
-  .divider {
-    height: auto;
-    border-left: none;
-    border-bottom: solid 1px var(--color-primary);
   }
 }

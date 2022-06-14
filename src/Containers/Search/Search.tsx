@@ -5,29 +5,27 @@ import { SearchForm } from "src/Components/SearchForm";
 import { Scanner } from "src/Components/Scanner";
 import { SearchTable } from "src/Components/SearchTable";
 import { searchResult } from "src/App/Entities";
+import { useSearch } from "src/Hooks";
 
 import styles from "./Search.module.css";
 
 function Search() {
-  const [searchApiResponse, setSearchApiResponse] = useState<searchResult[]>();
+  const { selectedPlace, setSelectedPlace, roomItems } = useSearch();
   const [openedResult, setOpenedResult] = useState<searchResult>();
 
   return (
     <Container>
       <div className={styles.search}>
-        <SearchForm setApiResponse={setSearchApiResponse} />
-        <div className={styles.dividerWrapper}>
-          <div className={styles.divider} />
-        </div>
-        <Scanner setScannedData={setSearchApiResponse} />
+        <SearchForm
+          selectedPlace={selectedPlace}
+          onChangePlace={setSelectedPlace}
+        />
+        {/*<Scanner setScannedData={setSearchApiResponse} />*/}
       </div>
-      {searchApiResponse && (
+      {roomItems && (
         <>
           <Description result={openedResult} />
-          <SearchTable
-            results={searchApiResponse}
-            setOpenedResult={setOpenedResult}
-          />
+          <SearchTable results={roomItems} setOpenedResult={setOpenedResult} />
         </>
       )}
     </Container>

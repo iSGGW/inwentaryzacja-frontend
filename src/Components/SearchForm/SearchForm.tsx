@@ -6,40 +6,55 @@ import {
   useState,
 } from "react";
 import { Form, Select } from "antd";
-import type { floor, searchResult } from "src/App/Entities";
-import { getMockFloors, searchMockData } from "src/App/Entities";
+
+import type { floor, place } from "src/App/Entities";
+import { fetchPlaces } from "src/App/Entities";
 
 import styles from "./SearchForm.module.css";
 
 interface SearchFormProps {
-  setApiResponse: Dispatch<SetStateAction<searchResult[] | undefined>>;
+  selectedPlace: place | undefined;
+  onChangePlace: Dispatch<SetStateAction<place | undefined>>;
 }
 
 export const SearchForm: FunctionComponent<SearchFormProps> = ({
-  setApiResponse,
+  onChangePlace,
+  selectedPlace,
 }) => {
-  const [floors, setFloors] = useState<floor[]>([]);
-  const [activeFloor, setActiveFloor] = useState<floor>();
-  const selectActiveFloor = (floor: string) =>
-    setActiveFloor(floors.find((e) => e.id === floor));
+  const floors: floor[] = fetchPlaces;
+  const [selectedFloor, setSelectedFloor] = useState<floor>();
+
+  const selectActiveFloor = (floor: string) => {
+    const floorObject = floors.find((e) => e.id === floor);
+    if (floorObject) {
+      onChangePlace({ floor: floorObject });
+    }
+  };
+
   const selectActiveRoom = (room: string) => {
-    setApiResponse(searchMockData);
+    const roomObject = selectedFloor?.rooms?.find((e) => e.id === room);
+    if (roomObject) {
+      onChangePlace((prevPlace) => {
+        const newPrevPlace: place = { ...prevPlace };
+        newPrevPlace.room = roomObject;
+        return newPrevPlace;
+      });
+    }
   };
 
   useEffect(() => {
-    try {
-      setFloors(getMockFloors());
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
+    const chosenFloor = floors.find(
+      (floor) => floor.id === selectedPlace?.floor?.id
+    );
+    setSelectedFloor(chosenFloor);
+  }, [selectedPlace]);
 
   return (
     <div className={styles.form}>
-      <h2>Wyszukiwanie</h2>
+      <h2>1. Wybierz pomieszczenie</h2>
       <Form labelCol={{ span: 4 }} wrapperCol={{ span: 18 }}>
         <Form.Item label="Piętro">
-          <Select onSelect={selectActiveFloor}>
+          <Select defaultValue={"Wybierz piętro"} onSelect={selectActiveFloor}>
             {floors.map((floor) => (
               <Select.Option key={floor.id} value={floor.id}>
                 {floor.name}
@@ -48,8 +63,12 @@ export const SearchForm: FunctionComponent<SearchFormProps> = ({
           </Select>
         </Form.Item>
         <Form.Item label="Sala">
-          <Select onSelect={selectActiveRoom} disabled={!activeFloor}>
-            {activeFloor?.rooms.map((room) => (
+          <Select
+            defaultValue={"Wybierz pomieszczenie"}
+            onSelect={selectActiveRoom}
+            disabled={!selectedPlace?.floor}
+          >
+            {selectedFloor?.rooms?.map((room) => (
               <Select.Option key={room.id} value={room.id}>
                 {room.name}
               </Select.Option>
