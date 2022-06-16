@@ -1,0 +1,15 @@
+{
+  "short_name": "Inwentaryzacja SGGW",
+  "name": "Aplikacja do inwentaryzacji sprzetu na SGGW na wydziale WZIM",
+  "icons": [
+    {
+      "src": "sggwLogo.svg",
+      "type": "image/svg",
+      "sizes": "68x68"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#003228",
+  "background_color": "#c8f0b4"
+}
