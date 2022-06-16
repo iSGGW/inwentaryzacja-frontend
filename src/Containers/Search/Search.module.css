@@ -1,15 +1,15 @@
 .search {
   background-color: white;
   border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  gap: 30px;
   padding: 20px;
-  width: 100%;
 }
 
-@media (max-width: 640px) {
-  .search {
-    flex-wrap: wrap;
-  }
+.steps {
+  margin-bottom: 20px;
+}
+
+.nextStep {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
 }

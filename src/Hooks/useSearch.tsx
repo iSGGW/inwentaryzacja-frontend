@@ -5,24 +5,37 @@ import { searchMockData } from "src/App/Entities";
 export const useSearch = () => {
   const [selectedPlace, setSelectedPlace] = useState<place>();
   const [roomItems, setRoomItems] = useState<searchResult[]>();
-  const [scanner, setScanner] = useState<boolean>(false);
+  const [step, setStep] = useState<number>(0);
+  const [nextStepEnabled, setNextStateEnabled] = useState<boolean>(false);
   const [scannedItems, setScannedItems] = useState<string[]>([]);
 
   useEffect(() => {
     if (selectedPlace?.room) {
-      setScanner(true);
-      // setRoomItems(searchMockData);
+      setNextStateEnabled(true);
     } else {
-      setScanner(false);
+      setNextStateEnabled(false);
     }
   }, [selectedPlace]);
 
+  useEffect(() => setNextStateEnabled(false), [step]);
+
+  const nextStep = () => setStep(step + 1);
+
+  const getComparedItems = () => {
+    //TODO: Connect with API
+    console.log(scannedItems);
+    setRoomItems(searchMockData);
+  };
+
   return {
-    scanner,
-    scannedItems,
-    setScannedItems,
-    selectedPlace,
-    setSelectedPlace,
+    getComparedItems,
+    nextStep,
+    nextStepEnabled,
     roomItems,
+    scannedItems,
+    selectedPlace,
+    setScannedItems,
+    setSelectedPlace,
+    step,
   };
 };

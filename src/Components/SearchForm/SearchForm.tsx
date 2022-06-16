@@ -51,10 +51,13 @@ export const SearchForm: FunctionComponent<SearchFormProps> = ({
 
   return (
     <div className={styles.form}>
-      <h2>1. Wybierz pomieszczenie</h2>
       <Form labelCol={{ span: 4 }} wrapperCol={{ span: 18 }}>
         <Form.Item label="Piętro">
-          <Select defaultValue={"Wybierz piętro"} onSelect={selectActiveFloor}>
+          <Select
+            defaultValue={"Wybierz piętro"}
+            onSelect={selectActiveFloor}
+            value={selectedPlace?.floor?.name}
+          >
             {floors.map((floor) => (
               <Select.Option key={floor.id} value={floor.id}>
                 {floor.name}
@@ -66,6 +69,7 @@ export const SearchForm: FunctionComponent<SearchFormProps> = ({
           <Select
             defaultValue={"Wybierz pomieszczenie"}
             onSelect={selectActiveRoom}
+            value={selectedPlace?.room?.name}
             disabled={!selectedPlace?.floor}
           >
             {selectedFloor?.rooms?.map((room) => (
