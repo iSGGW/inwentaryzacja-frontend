@@ -1,20 +1,18 @@
 import { Dispatch, FunctionComponent, SetStateAction, useState } from "react";
 import { OnResultFunction, QrReader } from "react-qr-reader";
 import { Button, Modal } from "antd";
-import { searchResult } from "src/App/Entities";
-
-import styles from "./Scanner.module.css";
 import { QrcodeOutlined } from "@ant-design/icons";
 
+import styles from "./Scanner.module.css";
+
 type ScannerProps = {
-  setScannedData: Dispatch<SetStateAction<searchResult[] | undefined>>;
+  setScannedItems: Dispatch<SetStateAction<string[]>>;
 };
 
 export const Scanner: FunctionComponent<ScannerProps> = ({
-  setScannedData,
+  setScannedItems,
 }) => {
   const [scanning, setScanning] = useState<boolean>(false);
-  const [scannedObject, setScannedObject] = useState<string>();
   const openScannerModal = () => setScanning(true);
   const closeScannerModal = () => setScanning(false);
 
@@ -22,7 +20,11 @@ export const Scanner: FunctionComponent<ScannerProps> = ({
     try {
       const currentResult = result?.getText();
       if (currentResult) {
-        setScannedObject(currentResult);
+        setScannedItems((scannedItems) => {
+          const newScannedItems = [...scannedItems];
+          newScannedItems?.push(currentResult);
+          return newScannedItems;
+        });
         setScanning(false);
       }
     } catch (error) {
@@ -33,7 +35,6 @@ export const Scanner: FunctionComponent<ScannerProps> = ({
   return (
     <>
       <div className={styles.formWrapper}>
-        <h2>Skanowanie</h2>
         <div className={styles.form}>
           <Button
             icon={<QrcodeOutlined />}
