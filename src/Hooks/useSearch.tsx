@@ -5,9 +5,9 @@ import { searchMockData } from "src/App/Entities";
 export const useSearch = () => {
   const [selectedPlace, setSelectedPlace] = useState<place>();
   const [roomItems, setRoomItems] = useState<searchResult[]>();
+  const scannedItems: string[] = [];
   const [step, setStep] = useState<number>(0);
   const [nextStepEnabled, setNextStateEnabled] = useState<boolean>(false);
-  const [scannedItems, setScannedItems] = useState<string[]>([]);
 
   useEffect(() => {
     if (selectedPlace?.room) {
@@ -21,20 +21,36 @@ export const useSearch = () => {
 
   const nextStep = () => setStep(step + 1);
 
+  const addScannedItem = (item: string) => {
+    const parsedItem = JSON.parse(item);
+    if (parsedItem?.id) {
+      if (!scannedItems.includes(parsedItem.id)) {
+        scannedItems.push(parsedItem.id);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (step === 1 && scannedItems.length > 0) {
+      setNextStateEnabled(true);
+    } else if (step === 1 && !(scannedItems.length > 0)) {
+      setNextStateEnabled(false);
+    }
+  }, [scannedItems]);
+
   const getComparedItems = () => {
     //TODO: Connect with API
-    console.log(scannedItems);
     setRoomItems(searchMockData);
   };
 
   return {
+    addScannedItem,
     getComparedItems,
     nextStep,
     nextStepEnabled,
     roomItems,
     scannedItems,
     selectedPlace,
-    setScannedItems,
     setSelectedPlace,
     step,
   };

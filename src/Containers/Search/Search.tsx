@@ -14,12 +14,12 @@ import styles from "./Search.module.css";
 
 function Search() {
   const {
+    addScannedItem,
     nextStep,
     nextStepEnabled,
     roomItems,
     scannedItems,
     selectedPlace,
-    setScannedItems,
     setSelectedPlace,
     step,
   } = useSearch();
@@ -37,7 +37,9 @@ function Search() {
     },
     {
       title: "Skanowanie przedmiotów",
-      content: <Scanner setScannedItems={setScannedItems} />,
+      content: (
+        <Scanner scannedItems={scannedItems} addScannedItem={addScannedItem} />
+      ),
     },
     {
       title: "Wynik inwentaryzacji",
