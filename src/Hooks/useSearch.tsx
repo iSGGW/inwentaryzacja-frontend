@@ -5,7 +5,7 @@ import { searchMockData } from "src/App/Entities";
 export const useSearch = () => {
   const [selectedPlace, setSelectedPlace] = useState<place>();
   const [roomItems, setRoomItems] = useState<searchResult[]>();
-  const scannedItems: string[] = [];
+  const [scannedItems, setScannedItems] = useState<string[]>([]);
   const [step, setStep] = useState<number>(0);
   const [nextStepEnabled, setNextStateEnabled] = useState<boolean>(false);
 
@@ -25,7 +25,7 @@ export const useSearch = () => {
     const parsedItem = JSON.parse(item);
     if (parsedItem?.id) {
       if (!scannedItems.includes(parsedItem.id)) {
-        scannedItems.push(parsedItem.id);
+        setScannedItems((prevState) => [...prevState, parsedItem.id]);
       }
     }
   };

@@ -1,9 +1,7 @@
-import { useState } from "react";
 import type { FunctionComponent } from "react";
 import { QrReader } from "react-qr-reader";
 import type { OnResultFunction } from "react-qr-reader";
-import { Button, Modal } from "antd";
-import { QrcodeOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 
 import styles from "./Scanner.module.css";
 
@@ -16,10 +14,6 @@ export const Scanner: FunctionComponent<ScannerProps> = ({
   addScannedItem,
   scannedItems,
 }) => {
-  const [scanning, setScanning] = useState<boolean>(false);
-  const openScannerModal = () => setScanning(true);
-  const closeScannerModal = () => setScanning(false);
-
   const handleResults: OnResultFunction = (result) => {
     try {
       const currentResult = result?.getText();
@@ -31,44 +25,31 @@ export const Scanner: FunctionComponent<ScannerProps> = ({
     }
   };
 
+  //TODO: Just for testing purposes - to be deleted
+  const addRandomJson = () => {
+    const randomJson: string = (Math.random() + 1).toString(36).substring(7);
+    const object = JSON.stringify({ id: randomJson });
+    addScannedItem(object);
+  };
+
   return (
     <>
-      <div className={styles.formWrapper}>
-        <div className={styles.form}>
-          <Button
-            icon={<QrcodeOutlined />}
-            onClick={openScannerModal}
-            shape={"circle"}
-          />
-        </div>
+      <div className={styles.scannerWrapper}>
+        <QrReader
+          constraints={{ facingMode: "environment" }}
+          containerStyle={{ maxHeight: "40vh" }}
+          onResult={handleResults}
+          videoContainerStyle={{ height: "40vh", paddingTop: 0 }}
+          videoId={"video"}
+          videoStyle={{
+            position: "unset",
+            margin: "0 auto",
+            objectFit: "cover",
+          }}
+        />
       </div>
-      <Modal
-        centered
-        className={styles.modal}
-        destroyOnClose
-        onCancel={closeScannerModal}
-        visible={scanning}
-        width={"auto"}
-      >
-        <div className={styles.scannerWrapper}>
-          <h3>Skanowanie QR</h3>
-          <QrReader
-            constraints={{ facingMode: "environment" }}
-            containerStyle={{ height: "97%" }}
-            onResult={handleResults}
-            videoContainerStyle={{ height: "100%", paddingTop: 0 }}
-            videoId={"video"}
-            videoStyle={{
-              position: "unset",
-              margin: "0 auto",
-              objectFit: "cover",
-            }}
-          />
-        </div>
-      </Modal>
-      {scannedItems.length > 0 && (
-        <div>Zeskanowane ID: {scannedItems.join(", ")}</div>
-      )}
+      <h3>Zeskanowane ID: {scannedItems.join(", ")}</h3>
+      <Button onClick={addRandomJson}>add random JSON</Button>
     </>
   );
 };

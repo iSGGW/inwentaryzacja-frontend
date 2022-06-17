@@ -1,28 +1,4 @@
-.formWrapper {
+.scannerWrapper {
   width: 100%;
   text-align: center;
-}
-
-.form button {
-  height: 200px;
-  width: 200px;
-}
-
-.form button svg {
-  width: 50%;
-  height: auto;
-}
-
-.modal {
-  position: relative;
-}
-
-.scannerWrapper {
-  height: 70vh;
-}
-
-@media (max-width: 640px) {
-  .formWrapper {
-    order: 1;
-  }
 }
