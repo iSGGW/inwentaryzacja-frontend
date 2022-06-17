@@ -1,0 +1,27 @@
+.auth {
+  background-color: var(--color-primary);
+  height: 100%;
+}
+
+.authLogo {
+  margin-bottom: 30px;
+  width: 170px;
+}
+
+.authHeader {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 5px 5px;
+  flex-grow: 1;
+  margin: 20px;
+  max-width: 1000px;
+  padding: 50px;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 600px;
+}
