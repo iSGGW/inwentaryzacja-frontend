@@ -1,25 +1,24 @@
-import { ChangeEvent, useState } from "react";
-import Inputs from "../../Components/inputs/index";
-import "./Add.css";
+import type { ChangeEvent } from "react";
+import { useState } from "react";
+import { Button, Form, Input } from "antd";
+import { Container } from "src/Components/Container";
+
+import styles from "./Add.module.css";
 
 interface valuesForm {
-  build: string;
-  classroom: string;
+  building: string;
+  floor: string;
+  room: string;
   objectName: string;
 }
 
 const Add = () => {
-  const { Input, PrimaryButton } = Inputs;
-
   const [values, setValues] = useState<valuesForm>({
-    build: "",
-    classroom: "",
+    building: "",
+    floor: "",
+    room: "",
     objectName: "",
   });
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     (values as any)[e.target.name] = e.target.value;
@@ -27,17 +26,30 @@ const Add = () => {
   };
 
   return (
-    <form className="add" onSubmit={handleSubmit}>
-      <h2>Dodaj przedmiot</h2>
-      <Input onChange={handleChange} name="build" label="nr budynku" />
-      <Input onChange={handleChange} name="classroom" label="nr sali" />
-      <Input
-        onChange={handleChange}
-        name="objectName"
-        label="nazwa przedmiotu"
-      />
-      <PrimaryButton label="ADD" type="submit" />
-    </form>
+    <Container>
+      <div className={styles.add}>
+        <h2 className={styles.title}>Dodaj przedmiot</h2>
+        <Form
+          className={styles.form}
+          labelCol={{ span: 9 }}
+          wrapperCol={{ span: 15 }}
+        >
+          <Form.Item label={"Budynek"}>
+            <Input onChange={(e) => handleChange(e)} name="building" />
+          </Form.Item>
+          <Form.Item label={"Piętro"}>
+            <Input onChange={(e) => handleChange(e)} name="floor" />
+          </Form.Item>
+          <Form.Item label={"Pomieszczenie"}>
+            <Input onChange={(e) => handleChange(e)} name="room" />
+          </Form.Item>
+          <Form.Item label={"Nazwa przedmiotu"}>
+            <Input onChange={(e) => handleChange(e)} name="objectName" />
+          </Form.Item>
+          <Button type={"primary"}>Dodaj</Button>
+        </Form>
+      </div>
+    </Container>
   );
 };
 
