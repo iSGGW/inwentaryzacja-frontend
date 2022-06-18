@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/inz/build/static/css/main.c4ef26da.css",
-    "main.js": "/inz/build/static/js/main.88ab7215.js",
+    "main.css": "/inz/build/static/css/main.9f41d6cb.css",
+    "main.js": "/inz/build/static/js/main.1916dc04.js",
     "static/media/sggwLogo.svg": "/inz/build/static/media/sggwLogo.5652e41e7f1a215699ea46a63607b65d.svg",
     "static/media/sggwLogoWhite.svg": "/inz/build/static/media/sggwLogoWhite.504d2c3705f938f673a867f40a4b2a0a.svg",
     "index.html": "/inz/build/index.html",
-    "main.c4ef26da.css.map": "/inz/build/static/css/main.c4ef26da.css.map",
-    "main.88ab7215.js.map": "/inz/build/static/js/main.88ab7215.js.map"
+    "main.9f41d6cb.css.map": "/inz/build/static/css/main.9f41d6cb.css.map",
+    "main.1916dc04.js.map": "/inz/build/static/js/main.1916dc04.js.map"
   },
   "entrypoints": [
-    "static/css/main.c4ef26da.css",
-    "static/js/main.88ab7215.js"
+    "static/css/main.9f41d6cb.css",
+    "static/js/main.1916dc04.js"
   ]
 }
