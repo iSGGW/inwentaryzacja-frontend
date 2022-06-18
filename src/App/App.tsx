@@ -5,10 +5,11 @@ import "./Base.less";
 
 import { navigation } from "src/App/Entities";
 
-import Auth from "../Containers/Auth/Auth";
-import AppLayout from "./Layouts/AppLayout";
-import Search from "../Containers/Search/Search";
 import Add from "../Containers/Add/Add";
+import AppLayout from "./Layouts/AppLayout";
+import Auth from "../Containers/Auth/Auth";
+import Modify from "../Containers/Modify/Modify";
+import Search from "../Containers/Search/Search";
 
 function App() {
   //TODO: Read authentication from api
@@ -39,6 +40,14 @@ function App() {
             element={
               <Page title="Wyszukaj">
                 <Add />
+              </Page>
+            }
+          />
+          <Route
+            path="/modify"
+            element={
+              <Page title="Modyfikuj">
+                <Modify />
               </Page>
             }
           />

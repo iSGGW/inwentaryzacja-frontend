@@ -1,0 +1,14 @@
+.modify {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+}
+
+.title,
+.searchForm {
+  margin-bottom: 40px;
+}

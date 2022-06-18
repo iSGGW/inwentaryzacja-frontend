@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { EditOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
 
 export interface navigationElement {
   pathname: string;
@@ -21,5 +21,11 @@ export const navigation: navigationElement[] = [
     name: "Dodawanie",
     href: "add",
     icon: <PlusOutlined />,
+  },
+  {
+    pathname: "/modify",
+    name: "Modyfikacja",
+    href: "modify",
+    icon: <EditOutlined />,
   },
 ];
