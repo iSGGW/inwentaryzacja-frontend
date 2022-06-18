@@ -2,6 +2,7 @@ import type { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/lib/table";
 import type { searchResult } from "src/App/Entities";
+import Status from "src/Components/Status/Status";
 
 interface searchTableProps {
   results: searchResult[];
@@ -28,12 +29,23 @@ export const SearchTable: FunctionComponent<searchTableProps> = ({
         name: result.name,
         floor: result.floor.name,
         room: result.room.name,
+        status: result.status,
       });
     });
     return dataToReturn;
   };
 
   const columns: ColumnsType<searchResultsColumn> = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Nazwa",
+      dataIndex: "name",
+      key: "name",
+    },
     {
       title: "Piętro",
       dataIndex: "floor",
@@ -45,14 +57,10 @@ export const SearchTable: FunctionComponent<searchTableProps> = ({
       key: "room",
     },
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-    },
-    {
-      title: "Nazwa",
-      dataIndex: "name",
-      key: "name",
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (value) => <Status itemStatus={value} />,
     },
   ];
 

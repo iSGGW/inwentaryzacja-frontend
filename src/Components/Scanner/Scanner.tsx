@@ -15,13 +15,11 @@ export const Scanner: FunctionComponent<ScannerProps> = ({
   scannedItems,
 }) => {
   const handleResults: OnResultFunction = (result) => {
-    try {
-      const currentResult = result?.getText();
-      if (currentResult) {
+    const currentResult = result?.getText();
+    if (currentResult) {
+      if (!scannedItems.includes(currentResult)) {
         addScannedItem(currentResult);
       }
-    } catch (error) {
-      console.error(error);
     }
   };
 

@@ -13,10 +13,7 @@ interface EditableRowProps {
   index: number;
 }
 
-const EditableRow: FunctionComponent<EditableRowProps> = ({
-  index,
-  ...props
-}) => {
+const EditableRow: FunctionComponent<EditableRowProps> = ({ ...props }) => {
   const [form] = Form.useForm();
   return (
     <Form form={form} component={false}>
@@ -85,7 +82,18 @@ const EditableCell: FunctionComponent<EditableCellProps> = ({
           },
         ]}
       >
-        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+        {dataIndex === "status" ? (
+          <Input
+            type={"number"}
+            min={1}
+            max={4}
+            ref={inputRef}
+            onPressEnter={save}
+            onBlur={save}
+          />
+        ) : (
+          <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+        )}
       </Form.Item>
     ) : (
       <div

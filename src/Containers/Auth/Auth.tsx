@@ -1,4 +1,5 @@
 import { Button, Form, Input } from "antd";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Formik, ErrorMessage } from "formik";
 import { Container } from "src/Components/Container";
 import sggwLogo from "src/Assets/sggwLogo.svg";
@@ -70,11 +71,14 @@ function Auth() {
                   <ErrorMessage name={"username"} component="div" />
                 </Form.Item>
                 <Form.Item label={"Hasło"}>
-                  <Input
+                  <Input.Password
                     name="password"
                     onChange={handleChange}
                     status={isError(errors.password, touched.password)}
                     value={values.password}
+                    iconRender={(visible) =>
+                      visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                    }
                   />
                   <ErrorMessage name={"password"} component="div" />
                 </Form.Item>

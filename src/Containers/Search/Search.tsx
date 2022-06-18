@@ -1,12 +1,9 @@
-import { useState } from "react";
 import { Button, Steps } from "antd";
-import type { searchResult } from "src/App/Entities";
 
 import { Container } from "src/Components/Container";
-import { Description } from "src/Components/Description/Description";
 import { SearchForm } from "src/Components/SearchForm";
 import { Scanner } from "src/Components/Scanner";
-import { SearchTable } from "src/Components/SearchTable";
+import { SearchReport } from "src/Components/SearchReport";
 
 import { useSearch } from "src/Hooks";
 
@@ -18,12 +15,12 @@ function Search() {
     nextStep,
     nextStepEnabled,
     roomItems,
+    getComparedItems,
     scannedItems,
     selectedPlace,
     setSelectedPlace,
     step,
   } = useSearch();
-  const [openedResult, setOpenedResult] = useState<searchResult>();
 
   const steps = [
     {
@@ -43,7 +40,12 @@ function Search() {
     },
     {
       title: "Wynik inwentaryzacji",
-      content: "Last-content",
+      content: (
+        <SearchReport
+          roomItems={roomItems}
+          getComparedItems={getComparedItems}
+        />
+      ),
     },
   ];
 
@@ -56,20 +58,17 @@ function Search() {
           ))}
         </Steps>
         {steps[step].content}
-        {roomItems && (
-          <>
-            <Description result={openedResult} />
-            <SearchTable
-              results={roomItems}
-              setOpenedResult={setOpenedResult}
-            />
-          </>
+        {step < steps.length - 1 && (
+          <div className={styles.nextStep}>
+            <Button
+              disabled={!nextStepEnabled}
+              type="primary"
+              onClick={nextStep}
+            >
+              Dalej
+            </Button>
+          </div>
         )}
-        <div className={styles.nextStep}>
-          <Button disabled={!nextStepEnabled} type="primary" onClick={nextStep}>
-            Dalej
-          </Button>
-        </div>
       </div>
     </Container>
   );
