@@ -5,11 +5,11 @@
 }
 
 .steps {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .nextStep {
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin-top: 40px;
 }

@@ -18,6 +18,7 @@ const initialValues: valuesForm = {
   objectName: "",
 };
 
+//TODO: Byc moze ta strona zostanie calkowicie zastapiana strona z modyfikacja
 const Add = () => {
   const isError = (error?: string, wasTouched?: boolean) => {
     if (error && wasTouched) {
