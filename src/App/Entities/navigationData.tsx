@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-import { EditOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { EditOutlined, SearchOutlined } from "@ant-design/icons";
 
 export interface navigationElement {
   pathname: string;
@@ -12,19 +12,19 @@ export interface navigationElement {
 export const navigation: navigationElement[] = [
   {
     pathname: "/search",
-    name: "Wyszukiwanie",
+    name: "Inwentaryzacja",
     href: "search",
     icon: <SearchOutlined />,
   },
-  {
-    pathname: "/add",
-    name: "Dodawanie",
-    href: "add",
-    icon: <PlusOutlined />,
-  },
+  // {
+  //   pathname: "/add",
+  //   name: "Dodawanie",
+  //   href: "add",
+  //   icon: <PlusOutlined />,
+  // },
   {
     pathname: "/modify",
-    name: "Modyfikacja",
+    name: "Modyfikacja stanu",
     href: "modify",
     icon: <EditOutlined />,
   },

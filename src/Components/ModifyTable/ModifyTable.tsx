@@ -196,6 +196,7 @@ const ModifyTable: FunctionComponent<ModifyTableProps> = ({
       <Table
         bordered
         columns={columns as ColumnTypes}
+        className={styles.table}
         components={components}
         dataSource={roomItems}
         rowClassName={() => "editable-row"}

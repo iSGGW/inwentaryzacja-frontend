@@ -1,3 +1,7 @@
 .modifyTable {
   margin-top: 20px;
 }
+
+.table :global(.ant-table) {
+  overflow-x: scroll;
+}
