@@ -24,14 +24,6 @@ export const SearchForm: FunctionComponent<SearchFormProps> = ({
   const floors: floor[] = fetchPlaces;
   const [selectedFloor, setSelectedFloor] = useState<floor>();
 
-  useEffect(() => {
-    fetch("https://20.218.104.224:443/api/buildings", {
-      mode: "no-cors",
-    })
-      .then((r) => console.log(r))
-      .catch((e) => console.error(e));
-  }, []);
-
   const selectActiveFloor = (floor: string) => {
     const floorObject = floors.find((e) => e.id === floor);
     if (floorObject) {
