@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "inz/build",
+  "proxy": "https://20.218.104.224:443/api",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@craco/craco": "^6.4.3",
