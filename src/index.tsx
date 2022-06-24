@@ -1,14 +1,14 @@
 import ReactDOM from "react-dom";
 import App from "./App/App";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 if (window.location.href === `${window.location.origin}/`) {
   window.location.href = "/inz/build";
 }
 
 ReactDOM.render(
-  <Router basename={"inz/build"}>
+  <HashRouter>
     <App />
-  </Router>,
+  </HashRouter>,
   document.getElementById("root")
 );
