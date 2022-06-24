@@ -35,9 +35,9 @@ export const Scanner: FunctionComponent<ScannerProps> = ({
       <div className={styles.scannerWrapper}>
         <QrReader
           constraints={{ facingMode: "environment" }}
-          containerStyle={{ maxHeight: "40vh" }}
+          containerStyle={{ maxHeight: "50vh" }}
           onResult={handleResults}
-          videoContainerStyle={{ height: "40vh", paddingTop: 0 }}
+          videoContainerStyle={{ height: "50vh", paddingTop: 0 }}
           videoId={"video"}
           videoStyle={{
             position: "unset",

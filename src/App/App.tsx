@@ -1,9 +1,17 @@
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { Routes, Route } from "react-router-dom";
 import { Navigate } from "react-router";
 import Page from "./Page";
 import "./Base.less";
 
-import { navigation } from "src/App/Entities";
+import { navigation, sessionInfo } from "src/App/Entities";
+import { sessionData } from "src/App/Endpoints/auth";
 
 import Add from "../Containers/Add/Add";
 import AppLayout from "./Layouts/AppLayout";
@@ -11,52 +19,82 @@ import Auth from "../Containers/Auth/Auth";
 import Modify from "../Containers/Modify/Modify";
 import Search from "../Containers/Search/Search";
 
+interface userContextType extends sessionInfo {
+  setUser: Dispatch<SetStateAction<sessionInfo>>;
+}
+
+export const UserContext = createContext<userContextType>(
+  {} as userContextType
+);
+
 function App() {
-  //TODO: Read authentication from api
-  const isAuthenticated = true;
+  const [user, setUser] = useState<sessionInfo>({
+    token: "",
+    user: "",
+  });
+
+  useEffect(() => {
+    const data: sessionInfo | void = sessionData();
+    if (data) {
+      setUser({
+        token: data.token,
+        user: data.user,
+      });
+    }
+  }, []);
+
+  const userContextValue = {
+    token: "",
+    user: "",
+    setUser: setUser,
+  };
 
   return (
-    <Routes>
-      <Route
-        path="/auth"
-        element={
-          <Page title="Zaloguj się">
-            <Auth />
-          </Page>
-        }
-      />
-      {isAuthenticated ? (
-        <Route element={<AppLayout navigation={navigation} />}>
-          <Route
-            path="/search"
-            element={
-              <Page title="Wyszukaj">
-                <Search />
-              </Page>
-            }
-          />
-          <Route
-            path="/add"
-            element={
-              <Page title="Wyszukaj">
-                <Add />
-              </Page>
-            }
-          />
-          <Route
-            path="/modify"
-            element={
-              <Page title="Modyfikuj">
-                <Modify />
-              </Page>
-            }
-          />
-          <Route path="*" element={<Navigate to="/search" />} />
-        </Route>
-      ) : (
-        <Route path="*" element={<Navigate to="/auth" />} />
-      )}
-    </Routes>
+    <UserContext.Provider value={userContextValue}>
+      <Routes>
+        {user.token ? (
+          <Route element={<AppLayout navigation={navigation} />}>
+            <Route
+              path="/search"
+              element={
+                <Page title="Wyszukaj">
+                  <Search />
+                </Page>
+              }
+            />
+            <Route
+              path="/add"
+              element={
+                <Page title="Wyszukaj">
+                  <Add />
+                </Page>
+              }
+            />
+            <Route
+              path="/modify"
+              element={
+                <Page title="Modyfikuj">
+                  <Modify />
+                </Page>
+              }
+            />
+            <Route path="*" element={<Navigate to="/search" />} />
+          </Route>
+        ) : (
+          <Route>
+            <Route
+              path="/auth"
+              element={
+                <Page title="Zaloguj się">
+                  <Auth />
+                </Page>
+              }
+            />
+            <Route path="*" element={<Navigate to="/auth" />} />
+          </Route>
+        )}
+      </Routes>
+    </UserContext.Provider>
   );
 }
 
