@@ -9,6 +9,7 @@ import sggwLogoWhite from "src/Assets/sggwLogoWhite.svg";
 
 import styles from "./AppLayout.module.css";
 import { Container } from "src/Components/Container";
+import { logout } from "src/App/Endpoints/auth";
 
 interface appLayoutProps {
   navigation: navigationElement[];
@@ -38,6 +39,14 @@ const AppLayout: FunctionComponent<appLayoutProps> = ({ navigation }) => {
     icon: navElement.icon,
   }));
 
+  const chooseMenuItem = (item: string) => {
+    if (item === "/logout") {
+      logout();
+    } else {
+      setCurrentLocation(item);
+    }
+  };
+
   return (
     <Layout className={styles.layout} hasSider>
       <Sider
@@ -54,7 +63,7 @@ const AppLayout: FunctionComponent<appLayoutProps> = ({ navigation }) => {
           className={styles.menu}
           items={navigationItems}
           mode="inline"
-          onClick={(e) => setCurrentLocation(e.key)}
+          onClick={(e) => chooseMenuItem(e.key)}
           selectedKeys={[currentLocation]}
           theme="dark"
         />

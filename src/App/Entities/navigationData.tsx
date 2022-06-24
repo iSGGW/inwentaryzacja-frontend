@@ -1,6 +1,10 @@
 import { ReactElement } from "react";
 
-import { EditOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  LogoutOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 
 export interface navigationElement {
   pathname: string;
@@ -27,5 +31,11 @@ export const navigation: navigationElement[] = [
     name: "Modyfikacja stanu",
     href: "modify",
     icon: <EditOutlined />,
+  },
+  {
+    pathname: "/logout",
+    name: "Wyloguj",
+    href: "#",
+    icon: <LogoutOutlined />,
   },
 ];
