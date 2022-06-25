@@ -1,6 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import {
+  fetchItemsByRoom,
+  fetchItemsById,
+} from "src/App/Endpoints/searchResult";
 import type { searchResult, placeIDs } from "src/App/Entities";
-import { searchMockData } from "src/App/Entities";
+
+import { UserContext } from "src/App/App";
 
 export const useSearch = () => {
   const [selectedPlace, setSelectedPlace] = useState<placeIDs>();
@@ -8,6 +13,8 @@ export const useSearch = () => {
   const [scannedItems, setScannedItems] = useState<string[]>([]);
   const [step, setStep] = useState<number>(0);
   const [nextStepEnabled, setNextStateEnabled] = useState<boolean>(false);
+
+  const userContext = useContext(UserContext);
 
   useEffect(() => {
     if (selectedPlace?.room) {
@@ -39,8 +46,25 @@ export const useSearch = () => {
   }, [scannedItems]);
 
   const getComparedItems = () => {
-    //TODO: Connect with API
-    setRoomItems(searchMockData);
+    fetchItemsByRoom(selectedPlace?.room || "", userContext.user.token).then(
+      (resp) => {
+        const list: searchResult[] = [];
+        const promises = scannedItems.map((scannedId) =>
+          fetchItemsById(scannedId, userContext.user.token)
+        );
+        Promise.allSettled(promises).then((response) => {
+          response.map((el) => {
+            if (el.status !== "rejected") {
+              list.push(el.value);
+            }
+          });
+          const listRoom = resp.filter(
+            (el) => !list.find((listEl) => listEl.id === el.id)
+          );
+          setRoomItems([...listRoom, ...list]);
+        });
+      }
+    );
   };
 
   return {

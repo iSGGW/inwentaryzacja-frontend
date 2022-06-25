@@ -40,7 +40,7 @@ const Status: FunctionComponent<StatusProps> = ({ itemStatus }) => {
   const getBadge = () => {
     if (itemStatus) {
       const matchingStatus = statuses.find(
-        (status) => status.id === itemStatus
+        (status) => status.id == itemStatus
       );
       if (matchingStatus) {
         return (

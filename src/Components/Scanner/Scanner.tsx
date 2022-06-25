@@ -25,7 +25,7 @@ export const Scanner: FunctionComponent<ScannerProps> = ({
 
   //TODO: Just for testing purposes - to be deleted
   const addRandomJson = () => {
-    const randomJson: string = (Math.random() + 1).toString(36).substring(7);
+    const randomJson: string = (Math.floor(Math.random() * 9) + 1).toString();
     const object = JSON.stringify({ id: randomJson });
     addScannedItem(object);
   };

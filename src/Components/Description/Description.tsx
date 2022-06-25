@@ -31,9 +31,9 @@ export const Description: FunctionComponent<DescriptionProps> = ({
             <Status itemStatus={result.status} />
           </Descriptions.Item>
           <Descriptions.Item label="Piętro">
-            {result.floor.name}
+            {result.room.floor.level}
           </Descriptions.Item>
-          <Descriptions.Item label="Sala">{result.room.name}</Descriptions.Item>
+          <Descriptions.Item label="Sala">{result.room.number}</Descriptions.Item>
         </Descriptions>
       )}
     </div>
