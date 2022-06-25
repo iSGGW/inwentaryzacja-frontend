@@ -103,10 +103,11 @@ const EditableCell: FunctionComponent<EditableCellProps> = ({
     ) : (
       <div
         className="editable-cell-value-wrap"
-        style={{ paddingRight: 24 }}
+        style={{ paddingRight: 24, width: "100%", height: "100%" }}
         onClick={toggleEdit}
       >
         {children}
+        &nbsp;
       </div>
     );
   }

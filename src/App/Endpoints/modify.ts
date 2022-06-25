@@ -20,6 +20,28 @@ export async function fetchItems(roomId: string, token: string) {
   return data;
 }
 
+export async function addItem(item: item, token: string) {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(item),
+  };
+  console.log(item);
+  const response = await fetch(`/api/items/add/`, requestOptions);
+
+  const text = await response.text();
+  const data = text && JSON.parse(text);
+
+  if (!response.ok) {
+    return Promise.reject(data);
+  }
+
+  return data;
+}
+
 export async function updateItem(
   itemId: string,
   updatedItem: item,

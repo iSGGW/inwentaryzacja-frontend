@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import type { item, placeIDs, searchResult } from "src/App/Entities";
-import { fetchItems, updateItem } from "src/App/Endpoints/modify";
+import type { item, placeIDs, room, searchResult } from "src/App/Entities";
+import { addItem, fetchItems, updateItem } from "src/App/Endpoints/modify";
 
 export const useModify = () => {
   const [token, setToken] = useState<string>();
   const [selectedPlace, setSelectedPlace] = useState<placeIDs>();
+  const [room, setRoom] = useState<room>();
   const [roomItems, setRoomItems] = useState<item[]>([]);
   const [loadingItems, setLoadingItems] = useState<boolean>(false);
   const [openedResult, setOpenedResult] = useState<searchResult>();
@@ -13,7 +14,6 @@ export const useModify = () => {
     if (selectedPlace?.room && token) {
       setLoadingItems(true);
       const items = await fetchItems(selectedRoom, token);
-      console.log(items);
       setRoomItems(items);
       setLoadingItems(false);
     }
@@ -26,7 +26,6 @@ export const useModify = () => {
       setRoomItems([]);
       setOpenedResult(undefined);
     }
-    console.log(roomItems);
   }, [selectedPlace]);
 
   const deleteItem = (id: string) => {
@@ -36,20 +35,24 @@ export const useModify = () => {
   };
 
   const addNewItem = () => {
-    // if (selectedPlace?.floor && selectedPlace?.room) {
-    //   const newItem: searchResult = {
-    //     id: `New_${roomItems.length}`,
-    //     name: "[Wpisz nazwę]",
-    //     status: "1",
-    //     floor: selectedPlace?.floor,
-    //     room: selectedPlace?.room,
-    //   };
-    //   setRoomItems((prevState) => {
-    //     const newState = [...prevState];
-    //     newState.push(newItem);
-    //     return newState;
-    //   });
-    // }
+    if (token && room) {
+      const item = {
+        manufacturer: "",
+        name: "",
+        room: room,
+        serialNumber: "",
+        status: "1" as item["status"],
+        type: "",
+      } as item;
+
+      addItem(item, token)
+        .then(() => {
+          if (selectedPlace?.room && token) {
+            getItems(selectedPlace?.room, token).catch((e) => console.error(e));
+          }
+        })
+        .catch((e) => console.error(e));
+    }
   };
 
   const modifyItem = (modifiedItem: item) => {
@@ -74,6 +77,7 @@ export const useModify = () => {
     selectedPlace,
     setOpenedResult,
     setSelectedPlace,
+    setRoom,
     setToken,
   };
 };

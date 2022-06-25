@@ -19,6 +19,7 @@ const Modify: FunctionComponent = () => {
     selectedPlace,
     setSelectedPlace,
     setToken,
+    setRoom,
   } = useModify();
 
   const userContext = useContext(UserContext);
@@ -32,7 +33,7 @@ const Modify: FunctionComponent = () => {
       <div className={styles.modify}>
         <h2 className={styles.title}>Zmodyfikuj stan przedmiotów</h2>
         <div className={styles.searchForm}>
-          <SearchForm onChangePlace={setSelectedPlace} />
+          <SearchForm onChangePlace={setSelectedPlace} setRoom={setRoom} />
         </div>
         {selectedPlace?.room && (
           <ModifyTable
