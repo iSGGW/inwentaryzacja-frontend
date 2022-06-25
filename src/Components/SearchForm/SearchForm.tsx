@@ -1,66 +1,129 @@
-import {
-  Dispatch,
-  FunctionComponent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import type { Dispatch, FunctionComponent, SetStateAction } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form, Select } from "antd";
 
-import type { floor, place } from "src/App/Entities";
-import { fetchPlaces } from "src/App/Entities";
+import {
+  fetchBuildings,
+  fetchFloors,
+  fetchRooms,
+} from "src/App/Endpoints/places";
+import { UserContext } from "src/App/App";
+
+import type { floor, placeIDs, building, places, room } from "src/App/Entities";
 
 import styles from "./SearchForm.module.css";
 
 interface SearchFormProps {
-  selectedPlace: place | undefined;
-  onChangePlace: Dispatch<SetStateAction<place | undefined>>;
+  onChangePlace: Dispatch<SetStateAction<placeIDs | undefined>>;
 }
 
 export const SearchForm: FunctionComponent<SearchFormProps> = ({
   onChangePlace,
-  selectedPlace,
 }) => {
-  const floors: floor[] = fetchPlaces;
-  const [selectedFloor, setSelectedFloor] = useState<floor>();
+  const userContext = useContext(UserContext);
+  const [availablePlaces, setAvailablePlaces] = useState<places>({
+    buildings: [],
+    floors: [],
+    rooms: [],
+  });
 
-  const selectActiveFloor = (floor: string) => {
-    const floorObject = floors.find((e) => e.id === floor);
-    if (floorObject) {
-      onChangePlace({ floor: floorObject });
-    }
-  };
+  async function getBuildings() {
+    let buildings: building[] = [];
+    await fetchBuildings(userContext.user.token).then(
+      (response: building[]) => {
+        buildings = response;
+      }
+    );
+    setAvailablePlaces((prevState) => ({
+      ...prevState,
+      buildings: buildings,
+    }));
+  }
 
-  const selectActiveRoom = (room: string) => {
-    const roomObject = selectedFloor?.rooms?.find((e) => e.id === room);
-    if (roomObject) {
-      onChangePlace((prevPlace) => {
-        const newPrevPlace: place = { ...prevPlace };
-        newPrevPlace.room = roomObject;
-        return newPrevPlace;
-      });
-    }
-  };
+  async function getFloors(buildingId: string, token: string) {
+    let floors: floor[] = [];
+    await fetchFloors(buildingId, token).then(
+      (response: floor[]) => (floors = response)
+    );
+    setAvailablePlaces((prevState) => ({
+      ...prevState,
+      floors: floors,
+    }));
+  }
+
+  async function getRooms(floorId: string, token: string) {
+    let rooms: room[] = [];
+    await fetchRooms(floorId, token).then(
+      (response: room[]) => (rooms = response)
+    );
+    setAvailablePlaces((prevState) => ({
+      ...prevState,
+      rooms: rooms,
+    }));
+    return rooms;
+  }
 
   useEffect(() => {
-    const chosenFloor = floors.find(
-      (floor) => floor.id === selectedPlace?.floor?.id
+    getBuildings().catch((e) => console.error(e));
+  }, []);
+
+  const changeBuilding = (buildingId: string) => {
+    onChangePlace(() => ({
+      building: buildingId,
+      floor: undefined,
+      room: undefined,
+    }));
+    setAvailablePlaces((prevState) => ({
+      ...prevState,
+      floors: [],
+      rooms: [],
+    }));
+    getFloors(buildingId, userContext.user.token).catch((e) =>
+      console.error(e)
     );
-    setSelectedFloor(chosenFloor);
-  }, [selectedPlace]);
+  };
+
+  const changeFloor = (floorId: string) => {
+    onChangePlace((prevState) => ({
+      ...prevState,
+      floor: floorId,
+      room: undefined,
+    }));
+    setAvailablePlaces((prevState) => ({
+      ...prevState,
+      rooms: [],
+    }));
+    getRooms(floorId, userContext.user.token).catch((e) => console.error(e));
+  };
+
+  const changeRoom = (roomId: string) => {
+    onChangePlace((prevState) => ({
+      ...prevState,
+      room: roomId,
+    }));
+  };
 
   return (
     <div className={styles.form}>
       <Form labelCol={{ span: 4 }} wrapperCol={{ span: 18 }}>
+        <Form.Item label="Budynek">
+          <Select defaultValue={"Wybierz budynek"} onSelect={changeBuilding}>
+            {availablePlaces.buildings.map((building) => (
+              <Select.Option key={building.id} value={building.id}>
+                {building.number}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
         <Form.Item label="Piętro">
           <Select
             defaultValue={"Wybierz piętro"}
-            onSelect={selectActiveFloor}
-            value={selectedPlace?.floor?.name}
+            onSelect={changeFloor}
+            disabled={availablePlaces.floors.length === 0}
           >
-            {floors.map((floor) => (
+            {availablePlaces.floors.map((floor) => (
               <Select.Option key={floor.id} value={floor.id}>
-                {floor.name}
+                {floor.level}
               </Select.Option>
             ))}
           </Select>
@@ -68,13 +131,12 @@ export const SearchForm: FunctionComponent<SearchFormProps> = ({
         <Form.Item label="Sala">
           <Select
             defaultValue={"Wybierz pomieszczenie"}
-            onSelect={selectActiveRoom}
-            value={selectedPlace?.room?.name}
-            disabled={!selectedPlace?.floor}
+            onSelect={changeRoom}
+            disabled={availablePlaces.rooms.length === 0}
           >
-            {selectedFloor?.rooms?.map((room) => (
+            {availablePlaces?.rooms?.map((room) => (
               <Select.Option key={room.id} value={room.id}>
-                {room.name}
+                {room.number}
               </Select.Option>
             ))}
           </Select>

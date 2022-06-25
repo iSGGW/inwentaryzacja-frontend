@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import type { searchResult, place } from "src/App/Entities";
+import type { searchResult, placeIDs } from "src/App/Entities";
 import { searchMockData } from "src/App/Entities";
 
 export const useSearch = () => {
-  const [selectedPlace, setSelectedPlace] = useState<place>();
+  const [selectedPlace, setSelectedPlace] = useState<placeIDs>();
   const [roomItems, setRoomItems] = useState<searchResult[]>();
   const [scannedItems, setScannedItems] = useState<string[]>([]);
   const [step, setStep] = useState<number>(0);

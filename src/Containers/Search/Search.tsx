@@ -17,7 +17,6 @@ function Search() {
     roomItems,
     getComparedItems,
     scannedItems,
-    selectedPlace,
     setSelectedPlace,
     step,
   } = useSearch();
@@ -25,12 +24,7 @@ function Search() {
   const steps = [
     {
       title: "Wybór pomieszczenia",
-      content: (
-        <SearchForm
-          selectedPlace={selectedPlace}
-          onChangePlace={setSelectedPlace}
-        />
-      ),
+      content: <SearchForm onChangePlace={setSelectedPlace} />,
     },
     {
       title: "Skanowanie przedmiotów",
