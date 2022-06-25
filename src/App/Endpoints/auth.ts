@@ -14,10 +14,7 @@ export async function login(props: user): Promise<sessionInfo> {
     body: JSON.stringify({ usernameOrEmail, password }),
   };
 
-  const response = await fetch(
-    `${process.env.REACT_APP_API_URL}/auth/signin`,
-    requestOptions
-  );
+  const response = await fetch(`/api/auth/signin`, requestOptions);
 
   const text = await response.text();
   const data: authResponse = text && JSON.parse(text);

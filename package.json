@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "inz/build",
-  "proxy": "https://20.218.104.224:443/api",
+  "proxy": "https://20.218.104.224:8443/api",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@craco/craco": "^6.4.3",
@@ -17,7 +17,6 @@
     "antd": "^4.20.7",
     "classnames": "^2.3.1",
     "craco-less": "^2.0.0",
-    "env-cmd": "^10.1.0",
     "formik": "^2.2.9",
     "prettier": "^2.6.0",
     "react": "^17.0.2",
@@ -29,8 +28,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "env-cmd -f .env.development craco start",
-    "build": "env-cmd -f .env.production craco build",
+    "start": "craco start",
+    "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "lint": "eslint src --ext .ts,.tsx",
