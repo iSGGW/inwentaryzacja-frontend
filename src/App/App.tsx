@@ -19,7 +19,8 @@ import Auth from "../Containers/Auth/Auth";
 import Modify from "../Containers/Modify/Modify";
 import Search from "../Containers/Search/Search";
 
-interface userContextType extends sessionInfo {
+interface userContextType {
+  user: sessionInfo;
   setUser: Dispatch<SetStateAction<sessionInfo>>;
 }
 
@@ -43,14 +44,8 @@ function App() {
     }
   }, []);
 
-  const userContextValue = {
-    token: "",
-    user: "",
-    setUser: setUser,
-  };
-
   return (
-    <UserContext.Provider value={userContextValue}>
+    <UserContext.Provider value={{ user, setUser }}>
       <Routes>
         {user.token ? (
           <Route element={<AppLayout navigation={navigation} />}>

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import type { place, searchResult } from "src/App/Entities";
+import type { place, placeIDs, searchResult } from "src/App/Entities";
 import { searchMockData } from "src/App/Entities";
 
 export const useModify = () => {
-  const [selectedPlace, setSelectedPlace] = useState<place>();
+  const [selectedPlace, setSelectedPlace] = useState<placeIDs>();
   const [roomItems, setRoomItems] = useState<searchResult[]>([]);
   const [openedResult, setOpenedResult] = useState<searchResult>();
 
@@ -28,20 +28,20 @@ export const useModify = () => {
   };
 
   const addNewItem = () => {
-    if (selectedPlace?.floor && selectedPlace?.room) {
-      const newItem: searchResult = {
-        id: `New_${roomItems.length}`,
-        name: "[Wpisz nazwę]",
-        status: "1",
-        floor: selectedPlace?.floor,
-        room: selectedPlace?.room,
-      };
-      setRoomItems((prevState) => {
-        const newState = [...prevState];
-        newState.push(newItem);
-        return newState;
-      });
-    }
+    // if (selectedPlace?.floor && selectedPlace?.room) {
+    //   const newItem: searchResult = {
+    //     id: `New_${roomItems.length}`,
+    //     name: "[Wpisz nazwę]",
+    //     status: "1",
+    //     floor: selectedPlace?.floor,
+    //     room: selectedPlace?.room,
+    //   };
+    //   setRoomItems((prevState) => {
+    //     const newState = [...prevState];
+    //     newState.push(newItem);
+    //     return newState;
+    //   });
+    // }
   };
 
   const modifyItem = (modifiedItem: searchResult) => {

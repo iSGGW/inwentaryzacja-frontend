@@ -21,10 +21,7 @@ const Modify: FunctionComponent = () => {
       <div className={styles.modify}>
         <h2 className={styles.title}>Zmodyfikuj stan przedmiotów</h2>
         <div className={styles.searchForm}>
-          <SearchForm
-            selectedPlace={selectedPlace}
-            onChangePlace={setSelectedPlace}
-          />
+          <SearchForm onChangePlace={setSelectedPlace} />
         </div>
         {selectedPlace?.room && (
           <ModifyTable
