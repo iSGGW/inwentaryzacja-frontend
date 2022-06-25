@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { item, placeIDs, searchResult } from "src/App/Entities";
-import { fetchItems } from "src/App/Endpoints/modify";
+import { fetchItems, updateItem } from "src/App/Endpoints/modify";
 
 export const useModify = () => {
   const [token, setToken] = useState<string>();
@@ -10,15 +10,18 @@ export const useModify = () => {
   const [openedResult, setOpenedResult] = useState<searchResult>();
 
   async function getItems(selectedRoom: string, token: string) {
-    const items = await fetchItems(selectedRoom, token);
-    setRoomItems(items);
+    if (selectedPlace?.room && token) {
+      setLoadingItems(true);
+      const items = await fetchItems(selectedRoom, token);
+      console.log(items);
+      setRoomItems(items);
+      setLoadingItems(false);
+    }
   }
 
   useEffect(() => {
     if (selectedPlace?.room && token) {
-      setLoadingItems(true);
       getItems(selectedPlace?.room, token).catch((e) => console.error(e));
-      setLoadingItems(false);
     } else {
       setRoomItems([]);
       setOpenedResult(undefined);
@@ -50,12 +53,15 @@ export const useModify = () => {
   };
 
   const modifyItem = (modifiedItem: item) => {
-    // setRoomItems((prevState) => {
-    //   const newState = [...prevState];
-    //   const index = newState.findIndex((item) => item.id === modifiedItem.id);
-    //   newState[index] = modifiedItem;
-    //   return newState;
-    // });
+    if (token) {
+      updateItem(modifiedItem.id, modifiedItem, token)
+        .then(() => {
+          if (selectedPlace?.room && token) {
+            getItems(selectedPlace?.room, token).catch((e) => console.error(e));
+          }
+        })
+        .catch((e) => console.error(e));
+    }
   };
 
   return {

@@ -1,11 +1,12 @@
 import type { FunctionComponent, ReactNode } from "react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { Button, Form, Input, Popconfirm, Table } from "antd";
+import { Button, Form, Input, notification, Popconfirm, Table } from "antd";
 import type { FormInstance, InputRef } from "antd";
 import type { item } from "src/App/Entities";
 import Status from "src/Components/Status/Status";
 
 import styles from "./ModifyTable.module.css";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 const EditableContext = createContext<FormInstance | null>(null);
 
@@ -64,7 +65,11 @@ const EditableCell: FunctionComponent<EditableCellProps> = ({
       toggleEdit();
       handleSave({ ...record, ...values });
     } catch (errInfo) {
-      console.log("Save failed:", errInfo);
+      notification.open({
+        message: "Nie udało się zapisać",
+        description: "Spróbuj ponownie",
+        icon: <CloseCircleOutlined style={{ color: "#e74d4d" }} />,
+      });
     }
   };
 
