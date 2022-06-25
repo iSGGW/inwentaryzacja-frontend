@@ -1,24 +1,29 @@
 import { useEffect, useState } from "react";
-import type { place, placeIDs, searchResult } from "src/App/Entities";
-import { searchMockData } from "src/App/Entities";
+import type { item, placeIDs, searchResult } from "src/App/Entities";
+import { fetchItems } from "src/App/Endpoints/modify";
 
 export const useModify = () => {
+  const [token, setToken] = useState<string>();
   const [selectedPlace, setSelectedPlace] = useState<placeIDs>();
-  const [roomItems, setRoomItems] = useState<searchResult[]>([]);
+  const [roomItems, setRoomItems] = useState<item[]>([]);
+  const [loadingItems, setLoadingItems] = useState<boolean>(false);
   const [openedResult, setOpenedResult] = useState<searchResult>();
 
-  const getComparedItems = () => {
-    //TODO: Connect with API
-    setRoomItems(searchMockData);
-  };
+  async function getItems(selectedRoom: string, token: string) {
+    const items = await fetchItems(selectedRoom, token);
+    setRoomItems(items);
+  }
 
   useEffect(() => {
-    if (selectedPlace?.room) {
-      getComparedItems();
+    if (selectedPlace?.room && token) {
+      setLoadingItems(true);
+      getItems(selectedPlace?.room, token).catch((e) => console.error(e));
+      setLoadingItems(false);
     } else {
       setRoomItems([]);
       setOpenedResult(undefined);
     }
+    console.log(roomItems);
   }, [selectedPlace]);
 
   const deleteItem = (id: string) => {
@@ -44,23 +49,25 @@ export const useModify = () => {
     // }
   };
 
-  const modifyItem = (modifiedItem: searchResult) => {
-    setRoomItems((prevState) => {
-      const newState = [...prevState];
-      const index = newState.findIndex((item) => item.id === modifiedItem.id);
-      newState[index] = modifiedItem;
-      return newState;
-    });
+  const modifyItem = (modifiedItem: item) => {
+    // setRoomItems((prevState) => {
+    //   const newState = [...prevState];
+    //   const index = newState.findIndex((item) => item.id === modifiedItem.id);
+    //   newState[index] = modifiedItem;
+    //   return newState;
+    // });
   };
 
   return {
     addNewItem,
     deleteItem,
+    loadingItems,
+    modifyItem,
     openedResult,
     roomItems,
-    modifyItem,
     selectedPlace,
     setOpenedResult,
     setSelectedPlace,
+    setToken,
   };
 };
