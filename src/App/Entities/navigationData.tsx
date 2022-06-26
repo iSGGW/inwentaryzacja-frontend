@@ -13,24 +13,33 @@ export interface navigationElement {
   icon: ReactElement;
 }
 
-export const navigation: navigationElement[] = [
+export const navigationAdmin: navigationElement[] = [
   {
     pathname: "/search",
     name: "Inwentaryzacja",
     href: "search",
     icon: <SearchOutlined />,
   },
-  // {
-  //   pathname: "/add",
-  //   name: "Dodawanie",
-  //   href: "add",
-  //   icon: <PlusOutlined />,
-  // },
   {
     pathname: "/modify",
     name: "Modyfikacja stanu",
     href: "modify",
     icon: <EditOutlined />,
+  },
+  {
+    pathname: "/logout",
+    name: "Wyloguj",
+    href: "#",
+    icon: <LogoutOutlined />,
+  },
+];
+
+export const navigationUser: navigationElement[] = [
+  {
+    pathname: "/search",
+    name: "Inwentaryzacja",
+    href: "search",
+    icon: <SearchOutlined />,
   },
   {
     pathname: "/logout",

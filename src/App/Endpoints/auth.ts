@@ -26,12 +26,14 @@ export async function login(props: user): Promise<sessionInfo> {
   const userInfo: sessionInfo = {
     user: usernameOrEmail,
     token: data.accessToken,
+    role: data.tokenBearerRole,
   };
 
   localStorage.setItem("isggw-user", JSON.stringify(userInfo));
   return {
     token: data.accessToken,
     user: usernameOrEmail,
+    role: data.tokenBearerRole,
   };
 }
 
