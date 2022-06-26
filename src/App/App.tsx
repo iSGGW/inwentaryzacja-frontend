@@ -10,7 +10,7 @@ import { Navigate } from "react-router";
 import Page from "./Page";
 import "./Base.less";
 
-import { navigation, sessionInfo } from "src/App/Entities";
+import { navigationAdmin, navigationUser, sessionInfo } from "src/App/Entities";
 import { sessionData } from "src/App/Endpoints/auth";
 
 import Add from "../Containers/Add/Add";
@@ -32,6 +32,7 @@ function App() {
   const [user, setUser] = useState<sessionInfo>({
     token: "",
     user: "",
+    role: "USER",
   });
 
   useEffect(() => {
@@ -40,9 +41,12 @@ function App() {
       setUser({
         token: data.token,
         user: data.user,
+        role: data.role,
       });
     }
   }, []);
+
+  const navigation = user.role === "ADMIN" ? navigationAdmin : navigationUser;
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -65,14 +69,16 @@ function App() {
                 </Page>
               }
             />
-            <Route
-              path="/modify"
-              element={
-                <Page title="Modyfikuj">
-                  <Modify />
-                </Page>
-              }
-            />
+            {user.role === "ADMIN" && (
+              <Route
+                path="/modify"
+                element={
+                  <Page title="Modyfikuj">
+                    <Modify />
+                  </Page>
+                }
+              />
+            )}
             <Route path="*" element={<Navigate to="/search" />} />
           </Route>
         ) : (

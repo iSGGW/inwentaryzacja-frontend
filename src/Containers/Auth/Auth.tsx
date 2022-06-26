@@ -54,6 +54,7 @@ function Auth() {
           userContext.setUser({
             token: r.token,
             user: r.user,
+            role: r.role,
           });
         })
         .catch((e) => {

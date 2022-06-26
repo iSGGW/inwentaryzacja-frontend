@@ -1,66 +1,94 @@
 import { useEffect, useState } from "react";
-import type { place, placeIDs, searchResult } from "src/App/Entities";
-import { searchMockData } from "src/App/Entities";
+import type { item, placeIDs, room, searchResult } from "src/App/Entities";
+import {
+  addItem,
+  deleteItem,
+  fetchItems,
+  updateItem,
+} from "src/App/Endpoints/modify";
 
 export const useModify = () => {
+  const [token, setToken] = useState<string>();
   const [selectedPlace, setSelectedPlace] = useState<placeIDs>();
-  const [roomItems, setRoomItems] = useState<searchResult[]>([]);
+  const [room, setRoom] = useState<room>();
+  const [roomItems, setRoomItems] = useState<item[]>([]);
+  const [loadingItems, setLoadingItems] = useState<boolean>(false);
   const [openedResult, setOpenedResult] = useState<searchResult>();
 
-  const getComparedItems = () => {
-    //TODO: Connect with API
-    setRoomItems(searchMockData);
-  };
+  async function getItems(selectedRoom: string, token: string) {
+    if (selectedPlace?.room && token) {
+      setLoadingItems(true);
+      const items = await fetchItems(selectedRoom, token);
+      setRoomItems(items);
+      setLoadingItems(false);
+    }
+  }
 
   useEffect(() => {
-    if (selectedPlace?.room) {
-      getComparedItems();
+    if (selectedPlace?.room && token) {
+      getItems(selectedPlace?.room, token).catch((e) => console.error(e));
     } else {
       setRoomItems([]);
       setOpenedResult(undefined);
     }
   }, [selectedPlace]);
 
-  const deleteItem = (id: string) => {
-    setRoomItems((prevState) => {
-      return prevState.filter((item) => item.id !== id);
-    });
-  };
-
   const addNewItem = () => {
-    // if (selectedPlace?.floor && selectedPlace?.room) {
-    //   const newItem: searchResult = {
-    //     id: `New_${roomItems.length}`,
-    //     name: "[Wpisz nazwę]",
-    //     status: "1",
-    //     floor: selectedPlace?.floor,
-    //     room: selectedPlace?.room,
-    //   };
-    //   setRoomItems((prevState) => {
-    //     const newState = [...prevState];
-    //     newState.push(newItem);
-    //     return newState;
-    //   });
-    // }
+    if (token && room) {
+      const item = {
+        manufacturer: "",
+        name: "",
+        room: room,
+        serialNumber: "",
+        status: "1" as item["status"],
+        type: "",
+      } as item;
+
+      addItem(item, token)
+        .then(() => {
+          if (selectedPlace?.room && token) {
+            getItems(selectedPlace?.room, token).catch((e) => console.error(e));
+          }
+        })
+        .catch((e) => console.error(e));
+    }
   };
 
-  const modifyItem = (modifiedItem: searchResult) => {
-    setRoomItems((prevState) => {
-      const newState = [...prevState];
-      const index = newState.findIndex((item) => item.id === modifiedItem.id);
-      newState[index] = modifiedItem;
-      return newState;
-    });
+  const modifyItem = (modifiedItem: item) => {
+    if (token) {
+      updateItem(modifiedItem.id, modifiedItem, token)
+        .then(() => {
+          if (selectedPlace?.room && token) {
+            getItems(selectedPlace?.room, token).catch((e) => console.error(e));
+          }
+        })
+        .catch((e) => console.error(e));
+    }
+  };
+
+  const removeItem = (itemId: string) => {
+    if (token) {
+      deleteItem(itemId, token)
+        .then(() => {
+          if (selectedPlace?.room && token) {
+            getItems(selectedPlace?.room, token).catch((e) => console.error(e));
+          }
+        })
+        .catch((e) => console.error(e));
+    }
   };
 
   return {
     addNewItem,
-    deleteItem,
-    openedResult,
-    roomItems,
+    loadingItems,
     modifyItem,
+    openedResult,
+    removeItem,
+    roomItems,
     selectedPlace,
     setOpenedResult,
+    setRoom,
     setSelectedPlace,
+    setToken,
   };
 };

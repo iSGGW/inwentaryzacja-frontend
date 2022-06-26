@@ -1,11 +1,12 @@
 import type { FunctionComponent, ReactNode } from "react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { Button, Form, Input, Popconfirm, Table } from "antd";
+import { Button, Form, Input, notification, Popconfirm, Table } from "antd";
 import type { FormInstance, InputRef } from "antd";
-import type { searchResult } from "src/App/Entities";
+import type { item } from "src/App/Entities";
 import Status from "src/Components/Status/Status";
 
 import styles from "./ModifyTable.module.css";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 const EditableContext = createContext<FormInstance | null>(null);
 
@@ -26,10 +27,10 @@ const EditableRow: FunctionComponent<EditableRowProps> = ({ ...props }) => {
 
 interface EditableCellProps {
   children: ReactNode;
-  dataIndex: keyof searchResult;
+  dataIndex: keyof item;
   editable: boolean;
-  handleSave: (record: searchResult) => void;
-  record: searchResult;
+  handleSave: (record: item) => void;
+  record: item;
   title: ReactNode;
 }
 
@@ -64,7 +65,11 @@ const EditableCell: FunctionComponent<EditableCellProps> = ({
       toggleEdit();
       handleSave({ ...record, ...values });
     } catch (errInfo) {
-      console.log("Save failed:", errInfo);
+      notification.open({
+        message: "Nie udało się zapisać",
+        description: "Spróbuj ponownie",
+        icon: <CloseCircleOutlined style={{ color: "#e74d4d" }} />,
+      });
     }
   };
 
@@ -98,10 +103,11 @@ const EditableCell: FunctionComponent<EditableCellProps> = ({
     ) : (
       <div
         className="editable-cell-value-wrap"
-        style={{ paddingRight: 24 }}
+        style={{ paddingRight: 24, width: "100%", height: "100%" }}
         onClick={toggleEdit}
       >
         {children}
+        &nbsp;
       </div>
     );
   }
@@ -116,8 +122,9 @@ type ColumnTypes = Exclude<EditableTableProps["columns"], undefined>;
 interface ModifyTableProps {
   addNewItem: () => void;
   deleteItem: (id: string) => void;
-  modifyItem: (item: searchResult) => void;
-  roomItems: searchResult[];
+  modifyItem: (item: item) => void;
+  roomItems: item[];
+  loadingItems: boolean;
 }
 
 const ModifyTable: FunctionComponent<ModifyTableProps> = ({
@@ -125,14 +132,30 @@ const ModifyTable: FunctionComponent<ModifyTableProps> = ({
   deleteItem,
   modifyItem,
   roomItems,
+  loadingItems,
 }) => {
   const defaultColumns: (ColumnTypes[number] & {
     editable?: boolean;
     dataIndex: string;
   })[] = [
     {
+      title: "Typ",
+      dataIndex: "type",
+      editable: true,
+    },
+    {
       title: "Nazwa",
       dataIndex: "name",
+      editable: true,
+    },
+    {
+      title: "Producent",
+      dataIndex: "manufacturer",
+      editable: true,
+    },
+    {
+      title: "Nr seryjny",
+      dataIndex: "serialNumber",
       editable: true,
     },
     {
@@ -143,17 +166,18 @@ const ModifyTable: FunctionComponent<ModifyTableProps> = ({
     },
     {
       title: "Piętro",
-      dataIndex: "floor",
-      render: (value) => value.name,
+      dataIndex: "room",
+      render: (value) => value.floor?.level,
     },
     {
       title: "Pomieszczenie",
       dataIndex: "room",
-      render: (value) => value.name,
+      render: (value) => value.number,
     },
     {
       title: "Akcje",
       dataIndex: "id",
+      fixed: "right",
       render: (dataIndex) => (
         <Popconfirm
           title="Czy chcesz usunąć?"
@@ -178,7 +202,7 @@ const ModifyTable: FunctionComponent<ModifyTableProps> = ({
     }
     return {
       ...col,
-      onCell: (record: searchResult) => ({
+      onCell: (record: item) => ({
         record,
         editable: col.editable,
         dataIndex: col.dataIndex,
@@ -199,6 +223,7 @@ const ModifyTable: FunctionComponent<ModifyTableProps> = ({
         className={styles.table}
         components={components}
         dataSource={roomItems}
+        loading={loadingItems}
         rowClassName={() => "editable-row"}
         rowKey={"id"}
       />
