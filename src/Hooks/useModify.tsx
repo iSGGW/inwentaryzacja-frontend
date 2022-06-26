@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import type { item, placeIDs, room, searchResult } from "src/App/Entities";
-import { addItem, fetchItems, updateItem } from "src/App/Endpoints/modify";
+import {
+  addItem,
+  deleteItem,
+  fetchItems,
+  updateItem,
+} from "src/App/Endpoints/modify";
 
 export const useModify = () => {
   const [token, setToken] = useState<string>();
@@ -27,12 +32,6 @@ export const useModify = () => {
       setOpenedResult(undefined);
     }
   }, [selectedPlace]);
-
-  const deleteItem = (id: string) => {
-    setRoomItems((prevState) => {
-      return prevState.filter((item) => item.id !== id);
-    });
-  };
 
   const addNewItem = () => {
     if (token && room) {
@@ -67,17 +66,29 @@ export const useModify = () => {
     }
   };
 
+  const removeItem = (itemId: string) => {
+    if (token) {
+      deleteItem(itemId, token)
+        .then(() => {
+          if (selectedPlace?.room && token) {
+            getItems(selectedPlace?.room, token).catch((e) => console.error(e));
+          }
+        })
+        .catch((e) => console.error(e));
+    }
+  };
+
   return {
     addNewItem,
-    deleteItem,
     loadingItems,
     modifyItem,
     openedResult,
+    removeItem,
     roomItems,
     selectedPlace,
     setOpenedResult,
-    setSelectedPlace,
     setRoom,
+    setSelectedPlace,
     setToken,
   };
 };

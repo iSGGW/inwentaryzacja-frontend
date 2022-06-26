@@ -12,7 +12,7 @@ import styles from "./Modify.module.css";
 const Modify: FunctionComponent = () => {
   const {
     addNewItem,
-    deleteItem,
+    removeItem,
     loadingItems,
     modifyItem,
     roomItems,
@@ -38,10 +38,10 @@ const Modify: FunctionComponent = () => {
         {selectedPlace?.room && (
           <ModifyTable
             addNewItem={addNewItem}
-            deleteItem={deleteItem}
+            deleteItem={removeItem}
+            loadingItems={loadingItems}
             modifyItem={modifyItem}
             roomItems={roomItems}
-            loadingItems={loadingItems}
           />
         )}
       </div>
