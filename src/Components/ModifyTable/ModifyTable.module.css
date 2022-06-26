@@ -2,6 +2,10 @@
   margin-top: 20px;
 }
 
+.table td {
+  white-space: nowrap;
+}
+
 .table :global(.ant-table) {
   overflow-x: scroll;
 }

@@ -15,10 +15,12 @@ import styles from "./SearchForm.module.css";
 
 interface SearchFormProps {
   onChangePlace: Dispatch<SetStateAction<placeIDs | undefined>>;
+  setRoom?: Dispatch<SetStateAction<room | undefined>>;
 }
 
 export const SearchForm: FunctionComponent<SearchFormProps> = ({
   onChangePlace,
+  setRoom,
 }) => {
   const userContext = useContext(UserContext);
   const [availablePlaces, setAvailablePlaces] = useState<places>({
@@ -101,6 +103,9 @@ export const SearchForm: FunctionComponent<SearchFormProps> = ({
       ...prevState,
       room: roomId,
     }));
+    if (setRoom) {
+      setRoom(availablePlaces.rooms.find((e) => e.id === roomId));
+    }
   };
 
   return (
