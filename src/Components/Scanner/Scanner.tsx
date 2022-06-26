@@ -1,7 +1,6 @@
 import type { FunctionComponent } from "react";
 import { QrReader } from "react-qr-reader";
 import type { OnResultFunction } from "react-qr-reader";
-import { Button } from "antd";
 
 import styles from "./Scanner.module.css";
 
@@ -23,13 +22,6 @@ export const Scanner: FunctionComponent<ScannerProps> = ({
     }
   };
 
-  //TODO: Just for testing purposes - to be deleted
-  const addRandomJson = () => {
-    const randomJson: string = (Math.random() + 1).toString(36).substring(7);
-    const object = JSON.stringify({ id: randomJson });
-    addScannedItem(object);
-  };
-
   return (
     <>
       <div className={styles.scannerWrapper}>
@@ -47,7 +39,6 @@ export const Scanner: FunctionComponent<ScannerProps> = ({
         />
       </div>
       <h3>Zeskanowane ID: {scannedItems.join(", ")}</h3>
-      <Button onClick={addRandomJson}>add random JSON</Button>
     </>
   );
 };

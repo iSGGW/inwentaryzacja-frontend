@@ -1,12 +1,12 @@
 import type { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/lib/table";
-import type { searchResult } from "src/App/Entities";
+import type { item, searchResult } from "src/App/Entities";
 import Status from "src/Components/Status/Status";
 
 interface searchTableProps {
   results: searchResult[];
-  setOpenedResult: Dispatch<SetStateAction<searchResult | undefined>>;
+  setOpenedResult: Dispatch<SetStateAction<item | undefined>>;
 }
 
 interface searchResultsColumn {
@@ -27,8 +27,8 @@ export const SearchTable: FunctionComponent<searchTableProps> = ({
       dataToReturn.push({
         id: result.id,
         name: result.name,
-        floor: result.floor.name,
-        room: result.room.name,
+        floor: result?.room?.floor?.level,
+        room: result?.room?.number,
         status: result.status,
       });
     });
@@ -66,6 +66,7 @@ export const SearchTable: FunctionComponent<searchTableProps> = ({
 
   const openDetails = (record: searchResultsColumn) => {
     const chosenItem = results.find((result) => result.id === record.id);
+    // @ts-ignore
     setOpenedResult(chosenItem);
   };
 
