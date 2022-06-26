@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Spin } from "antd";
 import { Description } from "src/Components/Description";
 import { SearchTable } from "src/Components/SearchTable";
-import type { searchResult } from "src/App/Entities";
+import type { item, searchResult } from "src/App/Entities";
 
 import styles from "./SearchReport.module.css";
 
@@ -16,7 +16,7 @@ export const SearchReport: FunctionComponent<SearchReportProps> = ({
   getComparedItems,
   roomItems,
 }) => {
-  const [openedResult, setOpenedResult] = useState<searchResult>();
+  const [openedResult, setOpenedResult] = useState<item>();
 
   useEffect(() => getComparedItems(), []);
 

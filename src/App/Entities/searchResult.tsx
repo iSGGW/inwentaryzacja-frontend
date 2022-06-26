@@ -11,11 +11,7 @@ export interface searchResult {
       building: {
         id: string;
         number: string;
-      }
-    }
-  }
+      };
+    };
+  };
 }
-
-export const searchMockData: searchResult[] = [
-
-];
