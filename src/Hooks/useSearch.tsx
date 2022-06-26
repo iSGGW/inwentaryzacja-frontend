@@ -55,7 +55,10 @@ export const useSearch = () => {
         Promise.allSettled(promises).then((response) => {
           response.map((el) => {
             if (el.status !== "rejected") {
-              list.push(el.value);
+              const listElement = list.find(listEl => el.value.id === listEl.id )
+              if(!listElement){
+                list.push(el.value);
+              }
             }
           });
           const listRoom = resp.filter(

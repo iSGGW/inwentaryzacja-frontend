@@ -27,8 +27,8 @@ export const SearchTable: FunctionComponent<searchTableProps> = ({
       dataToReturn.push({
         id: result.id,
         name: result.name,
-        floor: result.room.floor.level,
-        room: result.room.number,
+        floor: result?.room?.floor?.level,
+        room: result?.room?.number,
         status: result.status,
       });
     });
