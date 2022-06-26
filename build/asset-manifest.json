@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/inz/build/static/css/main.4e18bb19.css",
-    "main.js": "/inz/build/static/js/main.64d73918.js",
+    "main.js": "/inz/build/static/js/main.299a58ef.js",
     "static/media/sggwLogo.svg": "/inz/build/static/media/sggwLogo.5652e41e7f1a215699ea46a63607b65d.svg",
     "static/media/sggwLogoWhite.svg": "/inz/build/static/media/sggwLogoWhite.504d2c3705f938f673a867f40a4b2a0a.svg",
     "index.html": "/inz/build/index.html",
     "main.4e18bb19.css.map": "/inz/build/static/css/main.4e18bb19.css.map",
-    "main.64d73918.js.map": "/inz/build/static/js/main.64d73918.js.map"
+    "main.299a58ef.js.map": "/inz/build/static/js/main.299a58ef.js.map"
   },
   "entrypoints": [
     "static/css/main.4e18bb19.css",
-    "static/js/main.64d73918.js"
+    "static/js/main.299a58ef.js"
   ]
 }
